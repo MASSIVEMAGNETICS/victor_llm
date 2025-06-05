@@ -1,0 +1,5 @@
+openai
+numpy
+pyttsx3
+pydub
+opencv-python
