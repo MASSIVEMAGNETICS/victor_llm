@@ -4,3 +4,4 @@ pyttsx3
 pydub
 opencv-python
 scipy
+faiss-cpu
