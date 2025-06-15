@@ -12,7 +12,7 @@
 #          project-based, three-column Streamlit GUI. Provides full command and control over the
 #          emergent AGI ecosystem.
 #
-# USAGE: run VICTOR_PRIME.py 
+# USAGE: run VICTOR_PRIME.py
 #
 # PREREQUISITES: Python 3.x, Streamlit, spaCy, pronouncing (`pip install streamlit spacy pronouncing`)
 #                and the spaCy model: `python -m spacy download en_core_web_md`
@@ -164,7 +164,7 @@ class FractalMeshReasoner:
         # 1. Query KG based on input and goal.
         # 2. Retrieve relevant procedural memories (skills) from LTM.
         # 3. If direct path found, return solution. Else, try to decompose goal.
-        
+
         solution_path = self._recursive_reasoning_step(encoded_input, encoded_goal, encoded_context, current_depth=0, max_depth=max_depth, path_taken=[])
 
         if solution_path:
@@ -200,11 +200,11 @@ class FractalMeshReasoner:
         for action in possible_actions[:3]: # Explore top N actions to limit search space
             action_desc = action.get("description", "unnamed_action")
             victor_log("DEBUG", f"Depth {current_depth}: Trying action '{action_desc}'", component_name="Reasoner")
-            
+
             # Simulate applying action and getting new state (placeholder)
             # In a real system, this might involve forking a timeline in FractalState to test the action
             next_state_encoded = self._simulate_action_effect(current_state_encoded, action)
-            
+
             if next_state_encoded:
                 new_path_segment = {"action": action_desc, "resulting_state_summary": str(next_state_encoded)[:30]}
                 # Avoid cycles in path (simple check based on action description for now)
@@ -214,7 +214,7 @@ class FractalMeshReasoner:
                 solution = self._recursive_reasoning_step(next_state_encoded, goal_encoded, context_encoded, current_depth + 1, max_depth, path_taken + [new_path_segment])
                 if solution:
                     return solution
-        
+
         self.reasoning_depth -=1 # Backtrack from this depth of recursion
         return None
 
@@ -253,13 +253,13 @@ class FractalState:
     def __init__(self, agi_instance_ref, initial_state_provider_func, max_history_len=None):
         self.agi = agi_instance_ref
         self._get_initial_state_snapshot = initial_state_provider_func # This func should return a full AGI state snapshot
-        
+
         if max_history_len is None:
             max_history_len = VICTOR_CONFIG.get("fractal_state_max_history", 100) # Get from global config
 
         self.timelines = {} # Stores history deques for each timeline: name -> deque
         self.current_timeline = "genesis" # Default timeline name
-        
+
         # Initialize genesis timeline
         self.timelines[self.current_timeline] = collections.deque(maxlen=max_history_len)
         self.history = self.timelines[self.current_timeline] # Active history deque points to genesis's deque
@@ -267,7 +267,7 @@ class FractalState:
         # Save the very first state to the "genesis" timeline by capturing current AGI state
         initial_snapshot = self._get_initial_state_snapshot() # This is the initial state of AGI components
         self._save_snapshot_to_history(initial_snapshot, "Genesis initial state")
-        
+
         victor_log("INFO", f"FractalState initialized. Genesis timeline created with max_history={max_history_len}.", component_name="FractalState")
 
     def _capture_current_agi_state_snapshot(self):
@@ -325,9 +325,9 @@ class FractalState:
 
         timeline_history = self.timelines[target_timeline_name]
         try:
-            historic_state_entry = timeline_history[index] 
+            historic_state_entry = timeline_history[index]
             snapshot_to_restore = historic_state_entry["state_snapshot"]
-            
+
             self._apply_agi_state_from_snapshot(snapshot_to_restore)
             victor_log("INFO", f"State '{historic_state_entry['description']}' (idx {index}, saved {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(historic_state_entry['timestamp']))}) loaded from timeline '{target_timeline_name}'. AGI state updated.", component_name="FractalState")
             return True
@@ -343,7 +343,7 @@ class FractalState:
         if new_timeline_name in self.timelines:
             victor_log("WARNING", f"Timeline '{new_timeline_name}' already exists. Forking aborted.", component_name="FractalState")
             return False
-        
+
         source_name = source_timeline_name if source_timeline_name else self.current_timeline
         if source_name not in self.timelines:
             victor_log("ERROR", f"Source timeline '{source_name}' for fork not found. Aborting.", component_name="FractalState")
@@ -352,27 +352,27 @@ class FractalState:
         source_history_deque = self.timelines[source_name]
         # Create new deque with same maxlen, then deepcopy items
         new_history_deque = collections.deque(maxlen=source_history_deque.maxlen)
-        for item in source_history_deque: 
+        for item in source_history_deque:
             new_history_deque.append(copy.deepcopy(item))
-        
+
         self.timelines[new_timeline_name] = new_history_deque
         victor_log("INFO", f"Timeline '{source_name}' (len {len(source_history_deque)}) successfully forked to '{new_timeline_name}' (len {len(new_history_deque)}, maxlen {new_history_deque.maxlen}).", component_name="FractalState")
         return True
 
     def switch_timeline(self, timeline_name_to_switch_to):
         victor_log("INFO", f"Attempting to switch to timeline '{timeline_name_to_switch_to}'. Current: '{self.current_timeline}'.", component_name="FractalState")
-        
+
         if timeline_name_to_switch_to not in self.timelines:
             victor_log("INFO", f"Timeline '{timeline_name_to_switch_to}' does not exist. Creating it.", component_name="FractalState")
             base_maxlen = self.timelines.get("genesis", collections.deque(maxlen=VICTOR_CONFIG.get("fractal_state_max_history", 100))).maxlen
             self.timelines[timeline_name_to_switch_to] = collections.deque(maxlen=base_maxlen)
-            
+
             # Point current_timeline and history to the new empty deque
             self.current_timeline = timeline_name_to_switch_to
             self.history = self.timelines[timeline_name_to_switch_to]
             self.history.clear() # Explicitly clear, though new deque is empty
-            
-            current_agi_snapshot = self._capture_current_agi_state_snapshot() 
+
+            current_agi_snapshot = self._capture_current_agi_state_snapshot()
             self._save_snapshot_to_history(current_agi_snapshot, f"Initial state for new timeline '{timeline_name_to_switch_to}' from AGI state before switch")
             victor_log("INFO", f"Switched to new timeline '{timeline_name_to_switch_to}'. Current AGI state saved as its first entry. History len: {len(self.history)}.", component_name="FractalState")
             return True
@@ -383,14 +383,14 @@ class FractalState:
 
         if self.history: # Existing, non-empty timeline
             victor_log("INFO", f"Switched to existing timeline '{timeline_name_to_switch_to}' (len {len(self.history)}). Loading its latest state into AGI...", component_name="FractalState")
-            if not self.load_state(index=-1): 
+            if not self.load_state(index=-1):
                 victor_log("ERROR", f"Failed to load latest state from timeline '{timeline_name_to_switch_to}' during switch. AGI state might be inconsistent.", component_name="FractalState")
                 return False
         else: # Existing, but empty timeline
             victor_log("INFO", f"Switched to existing but empty timeline '{timeline_name_to_switch_to}'. Saving current AGI state as its first entry.", component_name="FractalState")
             current_agi_snapshot = self._capture_current_agi_state_snapshot()
             self._save_snapshot_to_history(current_agi_snapshot, f"Initial state for empty timeline '{timeline_name_to_switch_to}' from AGI state before switch")
-        
+
         victor_log("INFO", f"Successfully switched. Active timeline is now '{self.current_timeline}'. History len: {len(self.history)}.", component_name="FractalState")
         return True
 
@@ -437,8 +437,8 @@ class FractalState:
             with open(filepath, 'rb') as f:
                 import_data = pickle.load(f)
 
-            self.timelines.clear() 
-            
+            self.timelines.clear()
+
             timelines_data_from_file = import_data.get("timelines_data", {})
             timelines_maxlens_from_file = import_data.get("timelines_maxlens", {})
             default_maxlen = VICTOR_CONFIG.get("fractal_state_max_history", 100)
@@ -447,11 +447,11 @@ class FractalState:
                 maxlen = timelines_maxlens_from_file.get(tl_name, default_maxlen)
                 new_deque = collections.deque(maxlen=maxlen)
                 # Assuming items in hist_list_from_file are already deepcopied dicts
-                new_deque.extend(hist_list_from_file) 
+                new_deque.extend(hist_list_from_file)
                 self.timelines[tl_name] = new_deque
-            
+
             imported_current_tl_name = import_data.get("current_timeline_name")
-            
+
             if imported_current_tl_name and imported_current_tl_name in self.timelines:
                 self.current_timeline = imported_current_tl_name
             else:
@@ -486,7 +486,7 @@ class FractalState:
             victor_log("CRITICAL", f"Failed to import FractalState: {e}\n{traceback.format_exc()}", component_name="FractalState")
             # Re-initialize to a safe default to prevent AGI from running with corrupted fractal state.
             max_hist_default = VICTOR_CONFIG.get("fractal_state_max_history", 100)
-            self.__init__(self.agi, self._get_initial_state_snapshot, max_hist_default) 
+            self.__init__(self.agi, self._get_initial_state_snapshot, max_hist_default)
             victor_log("WARNING", "FractalState RE-INITIALIZED TO DEFAULT due to critical import error.", component_name="FractalState")
             return False
 
@@ -508,7 +508,7 @@ class FractalState:
         num_events_to_consider = int(history_len * np.clip(depth_percent, 0.0, 1.0))
         if num_events_to_consider == 0 and depth_percent > 0.0: # Ensure at least one event if depth > 0% and history exists
             num_events_to_consider = 1
-        
+
         if num_events_to_consider == 0:
              victor_log("INFO", f"Replay depth results in 0 events to consider for timeline '{target_timeline}'.", component_name="FractalStateReplay")
              return []
@@ -520,7 +520,7 @@ class FractalState:
         replayed_events_summary = []
         for historic_entry in relevant_history_slice:
             description = historic_entry.get("description", "N/A")
-            
+
             # Keyword filtering (case-insensitive)
             if event_filter_keywords and isinstance(event_filter_keywords, list):
                 if not any(keyword.lower() in description.lower() for keyword in event_filter_keywords):
@@ -537,7 +537,7 @@ class FractalState:
                 "state_snapshot_summary": snapshot_summary,
                 "timeline": target_timeline
             })
-        
+
         victor_log("INFO", f"Fractal memory replay on '{target_timeline}' processed {len(relevant_history_slice)} entries, yielded {len(replayed_events_summary)} filtered event summaries.", component_name="FractalStateReplay")
         return replayed_events_summary
 
@@ -617,11 +617,11 @@ class GodTierNLPCortex:
 
     def generate_response(self, comprehension_output, target_language="en", task_context=None):
         victor_log("DEBUG", f"Generating response based on intent: {comprehension_output.get('intent')}", component_name="NLP_Cortex")
-        
+
         # Placeholder for NLG (Natural Language Generation)
         # This would involve selecting content, structuring it, choosing appropriate language style (persona), etc.
         # This process would heavily interact with other AGI components (Memory, KG, TaskManager) via self.agi.
-        
+
         response_text = f"As {self.persona}, I acknowledge your input regarding: '{comprehension_output.get('raw_text')[:30]}...'. "
         intent = comprehension_output.get("intent")
         entities = comprehension_output.get("entities", [])
@@ -672,7 +672,7 @@ class GodTierNLPCortex:
 class VictorGUIBridge: # Identical to the one from the prompt, for brevity.
     def __init__(self, agi_instance, gui_app=None):
         self.agi = agi_instance
-        self.gui_app = gui_app 
+        self.gui_app = gui_app
         victor_log("INFO", "GUI Bridge initialized.", component_name="GUIBridge")
 
     def set_gui_app(self, gui_app_instance):
@@ -767,6 +767,7 @@ class VictorGUIBridge: # Identical to the one from the prompt, for brevity.
             if callback_on_no:
                 callback_on_no() # Or simulate a 'no' response
             return False
+
 # =============================================================
 # 6. MAIN AGI CLASS & CORE COMPONENTS (Continued)
 # =============================================================
@@ -785,7 +786,7 @@ class VictorAGIMonolith:
         self.config = VICTOR_CONFIG
         self.start_time = time.time()
         self.system_status = "initializing" # initializing, idle, active_processing, shutting_down, error
-        
+
         self.instance_id = generate_id("victor_agi_") # Unique ID for this AGI instance
         self.replicas = [] # List to store replicated AGI instances
         self.has_gui = False # Flag to indicate if this instance has an active GUI
@@ -806,17 +807,17 @@ class VictorAGIMonolith:
         self.output_system = OutputSystem(self)
         self.attention_system = AttentionSystem(self)
         self.task_manager = TaskManager(self)
-        
+
         # Fractal State Engine - needs a function to get the initial AGI state snapshot
         self.fractal_state_engine = FractalState(self, self.get_full_state_snapshot, VICTOR_CONFIG["fractal_state_max_history"])
-        
+
         self.nlp_cortex = GodTierNLPCortex(self) # For advanced text processing
         self.reasoner = FractalMeshReasoner(self) # For complex problem solving
         self.cognitive_cycle_manager = CognitiveCycleManager(self) # Orchestrates the main loop
 
         # Link components that need cross-references
         self.ethics_processor.agi = self # For more complex ethical checks needing AGI state
-        
+
         # Initialize TheLight for this instance (e.g., Genesis Light)
         self.genesis_light = TheLight(name=f"GenesisLight_{self.instance_id}", agi_owner=self)
         self.genesis_light.on_phase_event_handler = {
@@ -831,7 +832,7 @@ class VictorAGIMonolith:
         # self.lighthive.add_light_node(self.genesis_light)
 
 
-        self.plugins = {} 
+        self.plugins = {}
         self._load_plugins()
 
         self.system_status = "idle"
@@ -842,6 +843,15 @@ class VictorAGIMonolith:
         self._start_background_threads()
         self.gui_bridge.update_status_indicator("Idle", "green")
 
+    def get_loaded_packages_info(self):
+        victor_log("INFO", "Request to inspect loaded packages received.", component_name="AGI_Core")
+        # In a real scenario, inspect sys.modules, pip list, etc.
+        return {
+            "tkinter": "system_default",
+            "numpy": "1.23.5 (simulated)",
+            "PRIME_OMEGA_CORE_UTILS": "v5.0.0 (internal)",
+            "victor_core_ai_engine": "v5.1.2 (simulated_experimental)"
+        }
 
     def get_full_state_snapshot(self):
         """Captures a comprehensive snapshot of the AGI's current state for FractalState."""
@@ -891,7 +901,7 @@ class VictorAGIMonolith:
                 self.emotional_core.emotions = copy.deepcopy(snapshot["emotional_state"]) # Direct overwrite
                 self.emotional_core._log_sentiment() # Update derived values
                 victor_log("INFO", "EmotionalCore state restored from snapshot.", component_name="AGI_State")
-            
+
             # Task Manager: This is tricky. Overwriting tasks could lose runtime progress.
             # A safer approach might be to clear and add tasks, or selective updates.
             # For simplicity in a "full rollback" scenario:
@@ -913,7 +923,7 @@ class VictorAGIMonolith:
             # self.nlp_cortex.conversational_history = collections.deque(snapshot.get("nlp_cortex_history",[]), maxlen=self.nlp_cortex.conversational_history.maxlen)
 
             # The current timeline of FractalState is restored by FractalState.import_state itself.
-            
+
             victor_log("INFO", "Core component states (Emotion, Attention, partial Tasks) restored from snapshot.", component_name="AGI_State")
             # Re-trigger GUI updates
             self.gui_bridge.update_emotional_state_display(self.emotional_core.get_emotional_state(), self.emotional_core.get_dominant_emotion())
@@ -944,7 +954,7 @@ class VictorAGIMonolith:
 
     def _emotional_decay_loop(self):
         while not self.background_threads_stop_event.is_set():
-            time.sleep(45) 
+            time.sleep(45)
             if self.system_status not in ["shutting_down", "error", "initializing"]:
                 self.emotional_core.apply_mood_decay()
                 self.gui_bridge.update_emotional_state_display(self.emotional_core.get_emotional_state(), self.emotional_core.get_dominant_emotion())
@@ -955,10 +965,10 @@ class VictorAGIMonolith:
             time.sleep(save_interval)
             if self.system_status not in ["shutting_down", "error", "initializing"]:
                 victor_log("INFO", "[MemoryMgmtThread] Auto-saving LTM...", component_name="Memory")
-                self.memory._save_ltm() 
-                self.knowledge_graph.prune_weak_connections(threshold_weight=0.01) 
+                self.memory._save_ltm()
+                self.knowledge_graph.prune_weak_connections(threshold_weight=0.01)
 
-    def _system_monitoring_loop(self): 
+    def _system_monitoring_loop(self):
         while not self.background_threads_stop_event.is_set():
             time.sleep(3) # Faster update interval for GUI responsiveness
             if self.system_status not in ["shutting_down", "error", "initializing"] and self.gui_bridge.gui_app:
@@ -981,11 +991,11 @@ class VictorAGIMonolith:
                     "top_relations": sorted(self.knowledge_graph.relations_metadata.items(), key=lambda x: x[1]['count'], reverse=True)[:5]
                 }
                 self.gui_bridge.update_kg_display(kg_sum)
-                
+
                 # Update TheLight (e.g., GenesisLight) and check for phase events
                 if hasattr(self, 'genesis_light') and self.genesis_light:
                     self.genesis_light.update_phase() # This now internally calls on_phase_event
-                
+
                 # if hasattr(self, 'lighthive') and self.lighthive:
                 #     self.lighthive.pulse_all_nodes()
 
@@ -1004,8 +1014,8 @@ class VictorAGIMonolith:
         meta = metadata or {}
         meta["source"] = source
         if source.startswith(BloodlineRootLaw.BLOODLINE.split('&')[0]) or source == "creator_direct": # Check if source is Brandon
-            meta["intensity_metric"] = 1.0 
-            meta["force_attention"] = True 
+            meta["intensity_metric"] = 1.0
+            meta["force_attention"] = True
             # VICTOR_CONFIG["creator_override_active"] = True # This should be set by EthicsOverride command
             self.emotional_core.update_emotions({"loyalty_bloodline":0.5, "anticipation":0.5, "joy":0.3}, source="creator_interaction")
             victor_log("INFO", "Input identified as from Creator source.", component_name="Input")
@@ -1033,7 +1043,7 @@ class VictorAGIMonolith:
             "timeline_history_len": len(self.fractal_state_engine.history) if self.fractal_state_engine.history is not None else "N/A"
         }
         if for_gui: return report # GUI might format it differently
-        
+
         # Pretty print for console
         report_str = "-- Victor AGI Status Report --\n"
         for k,v in report.items():
@@ -1050,12 +1060,12 @@ class VictorAGIMonolith:
         if self.system_status == "shutting_down" or self.system_status == "shutdown_complete":
             victor_log("WARNING", "Shutdown already in progress or complete.", component_name="AGI_Boot")
             return
-            
+
         self.system_status = "shutting_down"
         self.gui_bridge.update_status_indicator("Shutting Down...", "red")
-        
+
         victor_log("INFO", "Signaling background threads to stop...", component_name="AGI_Boot")
-        self.background_threads_stop_event.set() 
+        self.background_threads_stop_event.set()
 
         victor_log("INFO", "Saving Long-Term Memory before final shutdown...", component_name="AGI_Boot")
         self.memory._save_ltm() # Ensure LTM is saved
@@ -1065,7 +1075,7 @@ class VictorAGIMonolith:
             if plugin_data.get("instance") and hasattr(plugin_data["instance"], "shutdown"):
                 victor_log("INFO", f"Shutting down plugin: {plugin_name}", component_name="PluginManager")
                 plugin_data["instance"].shutdown()
-        
+
         victor_log("INFO", "Waiting for background threads to terminate (max 5s each)...", component_name="AGI_Boot")
         main_thread = threading.current_thread()
         for thread in threading.enumerate():
@@ -1076,11 +1086,11 @@ class VictorAGIMonolith:
                     victor_log("WARNING", f"Thread {thread.name} did not terminate in time.", component_name="AGI_Boot")
                 else:
                     victor_log("DEBUG", f"Thread {thread.name} terminated.", component_name="AGI_Boot")
-        
+
         self.system_status = "shutdown_complete"
         victor_log("CRITICAL", "VICTOR AGI MONOLITH SHUTDOWN COMPLETE. OFFLINE.", component_name="AGI_Boot")
         if self.gui_bridge.gui_app:
-            self.gui_bridge.gui_app.on_agi_shutdown() 
+            self.gui_bridge.gui_app.on_agi_shutdown()
 
 # =============================================================
 # 7. TKINTER GUI - VICTOR COMMAND CENTER (Simplified for brevity in this context)
@@ -1088,16 +1098,17 @@ class VictorAGIMonolith:
 class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
     def __init__(self, agi_instance_provider): # Takes a function that returns AGI instance
         super().__init__()
-        self.agi_instance_provider = agi_instance_provider 
+        self.agi_instance_provider = agi_instance_provider
         self.agi = None # Will be set by _initialize_agi
-        
+        self.section_states = {} # Initialize dictionary to hold section states
+
         self.title(f"Victor AGI Command Center (Initializing...)")
         self.geometry("1200x800")
         self.protocol("WM_DELETE_WINDOW", self._on_closing)
 
         self._setup_styles()
         self._create_widgets() # Create widgets first
-        
+
         # Defer AGI initialization until GUI is minimally ready
         self.after(100, self._initialize_agi_and_layout)
 
@@ -1119,9 +1130,9 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         self.agi.gui_bridge.update_status_indicator("Idle", "green")
 
 
-    def _setup_styles(self): # Same as provided
+    def _setup_styles(self):
         self.style = ttk.Style(self)
-        self.style.theme_use('clam') 
+        self.style.theme_use('clam')
         self.style.configure("TNotebook.Tab", padding=[10, 5], font=('Segoe UI', 10, 'bold'))
         self.style.configure("TLabel", font=('Segoe UI', 10))
         self.style.configure("Header.TLabel", font=('Segoe UI', 12, 'bold'))
@@ -1130,37 +1141,71 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         self.style.configure("Treeview.Heading", font=('Segoe UI', 10, 'bold'))
         self.style.configure("Accent.TButton", foreground="white", background="#0078D4", font=('Segoe UI', 10, 'bold'))
 
+        # Sidebar specific styles
+        self.style.configure("Sidebar.TFrame", background="#111111")
+        self.style.configure("CategoryHeader.TButton",
+                             font=("Consolas", 11, "bold"),
+                             background="#282828",
+                             foreground="#00FF00",
+                             borderwidth=0,
+                             focusthickness=0,
+                             padding=[10,5],
+                             relief=tk.FLAT,
+                             anchor=tk.W)
+        self.style.map("CategoryHeader.TButton",
+                       background=[('active', '#333333'), ('pressed', '#404040')],
+                       foreground=[('active', '#55FFFF')])
+        self.style.configure("SidebarItem.TButton",
+                             font=("Consolas", 10),
+                             background="#111111",
+                             foreground="#CCCCCC",
+                             borderwidth=0,
+                             focusthickness=0,
+                             padding=[20, 3],
+                             relief=tk.FLAT,
+                             anchor=tk.W)
+        self.style.map("SidebarItem.TButton",
+                       background=[('active', '#222222')],
+                       foreground=[('active', '#FFFFFF')])
+        self.style.configure("SidebarItems.TFrame", background="#111111")
+
 
     def _create_widgets(self):
         self.main_paned_window = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
         self.left_pane = ttk.Frame(self.main_paned_window, padding=10)
-        self.main_paned_window.add(self.left_pane, weight=1) # Adjust weight as needed
+        self.main_paned_window.add(self.left_pane, weight=1)
         self.right_pane = ttk.Frame(self.main_paned_window)
-        self.main_paned_window.add(self.right_pane, weight=3) # Adjust weight
+        self.main_paned_window.add(self.right_pane, weight=3)
 
-        # Left Pane Widgets
-        self.input_frame = ttk.LabelFrame(self.left_pane, text="Command Input", padding=10)
-        self.input_label = ttk.Label(self.input_frame, text="Enter command or query for Victor:")
-        self.input_text = scrolledtext.ScrolledText(self.input_frame, height=5, width=35, font=('Segoe UI', 10), relief=tk.SOLID, borderwidth=1) # Adjusted width
-        self.send_button = ttk.Button(self.input_frame, text="Send to Victor", command=self._send_input_to_agi, style="Accent.TButton")
+        # New Sidebar Structure
+        self.sidebar_main_frame = ttk.Frame(self.left_pane, style="Sidebar.TFrame")
 
-        self.control_frame = ttk.LabelFrame(self.left_pane, text="AGI Control", padding=10)
-        self.status_button = ttk.Button(self.control_frame, text="AGI Status", command=self._get_agi_status)
-        self.override_button = ttk.Button(self.control_frame, text="Ethics Override", command=self._ethics_override_dialog)
-        self.save_state_button = ttk.Button(self.control_frame, text="Save Fractal State", command=self._save_fractal_state)
-        self.load_state_button = ttk.Button(self.control_frame, text="Load Fractal State", command=self._load_fractal_state)
-        self.shutdown_button = ttk.Button(self.control_frame, text="Shutdown AGI", command=self._confirm_shutdown)
-        
-        self.status_frame = ttk.LabelFrame(self.left_pane, text="AGI Status", padding=10)
-        self.status_light_label = ttk.Label(self.status_frame, text="Current Status:", style="Header.TLabel")
-        self.status_light_canvas = tk.Canvas(self.status_frame, width=20, height=20, bg="grey", relief=tk.SUNKEN, borderwidth=1)
-        self.status_light_text = ttk.Label(self.status_frame, text="Initializing...", style="Status.TLabel")
-        self.current_task_label = ttk.Label(self.status_frame, text="Task: None", wraplength=280)
-        self.dominant_emotion_label = ttk.Label(self.status_frame, text="Emotion: Neutral")
-        self.current_timeline_label = ttk.Label(self.status_frame, text="Timeline: genesis (0)")
+        # Populate Sidebar with Categories and Items
+        categories = {
+            "VICTOR CORE": [("New Chat", self._handle_new_chat), ("Search Chats", self._handle_search_chats)],
+            "LIBRARY": [("Project Library", self._handle_project_library), ("Custom Experts", self._handle_custom_experts)],
+            "OPERATIONS": [("Swarm Mode", self._handle_swarm_mode)],
+            "DEVELOPER": [("Developer Options", self._handle_developer_options), ("Loaded Packages Inspector", self._handle_inspect_packages)],
+            "TOOLS & PARAMETERS": [
+                ("Core System", self._handle_core_system_tools),
+                ("Model Parameters", self._handle_model_parameters_tools),
+                ("Memory Parameters", self._handle_memory_parameters_tools),
+                ("UI Skin/Theme", self._handle_ui_skin_tools)
+            ],
+            "STATE & MODELS": [
+                ("Save Model", self._handle_save_model_action),
+                ("Load Model", self._handle_load_model_action),
+                ("Snapshot State", self._handle_snapshot_state_action),
+                ("Rollback to Snapshot", self._handle_rollback_snapshot_action)
+            ],
+            "SETTINGS": [("Preferences", self._handle_preferences_settings), ("System Settings", self._handle_system_settings)]
+        }
 
+        for category_title, items_config in categories.items():
+            self.section_states[category_title] = False # Default to collapsed
+            self._create_collapsible_section(self.sidebar_main_frame, category_title, items_config)
 
-        # Right Pane Notebook (Tabs)
+        # Right Pane Notebook (Tabs) - unchanged from previous version
         self.notebook = ttk.Notebook(self.right_pane)
         tab_names = ["System Log", "Victor's Output", "Task Manager", "Cognitive Cycle / Plans", "Emotional Core", "Knowledge Graph", "Memory System", "Fractal Timelines"]
         self.tabs = {}
@@ -1172,24 +1217,21 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
                 text_area = scrolledtext.ScrolledText(tab_frame, width=80, height=20, state=tk.DISABLED, relief=tk.SOLID, borderwidth=1, font=("Courier New", 9) if "Plan" in tab_name else ('Segoe UI', 10))
                 text_area.pack(expand=True, fill=tk.BOTH)
                 setattr(self, f"{tab_name.lower().replace(' / ', '_').replace(' ', '_')}_text", text_area)
-        
-        # Specific setup for Task Manager Tab
+
         tm_tab = self.tabs["Task Manager"]
         self.task_pending_frame = ttk.LabelFrame(tm_tab, text="Pending/Active Tasks", padding=5)
         self.task_pending_tree = ttk.Treeview(self.task_pending_frame, columns=("id", "desc", "prio", "status", "progress"), show="headings", height=8)
         self._setup_task_treeview(self.task_pending_tree, completed=False)
         self.task_pending_frame.pack(pady=5, fill=tk.BOTH, expand=True)
-        
+
         self.task_completed_frame = ttk.LabelFrame(tm_tab, text="Recently Completed Tasks", padding=5)
         self.task_completed_tree = ttk.Treeview(self.task_completed_frame, columns=("id", "desc", "status"), show="headings", height=5)
         self._setup_task_treeview(self.task_completed_tree, completed=True)
         self.task_completed_frame.pack(pady=5, fill=tk.BOTH, expand=True)
 
-        # Specific setup for Emotions Tab
         self.emotions_canvas = tk.Canvas(self.tabs["Emotional Core"], width=700, height=400, bg="white", relief=tk.GROOVE, borderwidth=1)
         self.emotions_canvas.pack(expand=True, fill=tk.BOTH)
 
-        # Specific setup for Fractal Timelines Tab
         ft_tab = self.tabs["Fractal Timelines"]
         self.timeline_tree = ttk.Treeview(ft_tab, columns=("name", "length", "maxlen", "last_desc"), show="headings", height=10)
         self.timeline_tree.heading("name", text="Name"); self.timeline_tree.column("name", width=150)
@@ -1204,52 +1246,114 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         ttk.Button(ft_button_frame, text="Refresh List", command=self.update_fractal_timelines_display).pack(fill=tk.X, pady=2)
         ft_button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=5)
 
+    def _create_collapsible_section(self, parent_frame, category_title, items_config):
+        header_frame = ttk.Frame(parent_frame, style="Sidebar.TFrame") # Apply style
+        header_frame.pack(fill=tk.X, pady=(5, 1)) # Small gap after header
 
-    def _layout_widgets(self): # Simplified, assumes widgets created
+        items_frame = ttk.Frame(parent_frame, style="SidebarItems.TFrame") # Style for items area
+        # Items frame is not packed initially, toggle_section handles it.
+
+        initial_button_text = f"▶ {category_title}"
+
+        def toggle_section(button=None, items_frame_widget=items_frame, title=category_title):
+            current_state = self.section_states.get(title, False)
+            new_state = not current_state
+            self.section_states[title] = new_state
+
+            if new_state: # If expanded
+                items_frame_widget.pack(fill=tk.X, expand=True, pady=(0,5))
+                if button: button.configure(text=f"▼ {title}")
+            else: # If collapsed
+                items_frame_widget.pack_forget()
+                if button: button.configure(text=f"▶ {title}")
+
+        header_button = ttk.Button(header_frame, text=initial_button_text,
+                                   style="CategoryHeader.TButton")
+        # Use lambda to pass the button itself to the toggle function for text update
+        header_button.configure(command=lambda b=header_button: toggle_section(button=b))
+        header_button.pack(fill=tk.X)
+
+        for item_name, item_command in items_config:
+            item_button = ttk.Button(items_frame, text=item_name, command=item_command, style="SidebarItem.TButton")
+            item_button.pack(fill=tk.X, pady=1, padx=(10,0)) # Indent items slightly more
+
+    def _layout_widgets(self):
         self.main_paned_window.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
-        
-        # Left Pane
-        self.input_frame.pack(pady=5, padx=5, fill=tk.X)
-        self.input_label.pack(anchor=tk.W)
-        self.input_text.pack(pady=(0,5), fill=tk.X, expand=True)
-        self.send_button.pack(pady=(0,5))
+        self.sidebar_main_frame.pack(fill=tk.BOTH, expand=True) # Removed padx/pady from here
+        self.notebook.pack(expand=True, fill=tk.BOTH, padx=(0,5), pady=5) # Keep padding for notebook
 
-        self.control_frame.pack(pady=5, padx=5, fill=tk.X)
-        self.status_button.grid(row=0, column=0, padx=2, pady=2, sticky=tk.EW)
-        self.override_button.grid(row=0, column=1, padx=2, pady=2, sticky=tk.EW)
-        self.save_state_button.grid(row=1, column=0, padx=2, pady=2, sticky=tk.EW)
-        self.load_state_button.grid(row=1, column=1, padx=2, pady=2, sticky=tk.EW)
-        self.shutdown_button.grid(row=2, column=0, columnspan=2, padx=2, pady=2, sticky=tk.EW)
-        self.control_frame.columnconfigure((0,1), weight=1)
+    # --- Placeholder Handler Methods for Sidebar Items ---
+    def _handle_generic_item(self, item_name):
+        self.log_message("INFO", f"Sidebar: '{item_name}' clicked. (Functionality pending)")
+        self.show_agi_output(f"'{item_name}' selected. This feature is under development.")
 
+    def _handle_new_chat(self): self._handle_generic_item("New Chat")
+    def _handle_search_chats(self): self._handle_generic_item("Search Chats")
+    def _handle_project_library(self): self._handle_generic_item("Project Library")
+    def _handle_custom_experts(self): self._handle_generic_item("Custom Experts")
+    def _handle_swarm_mode(self):
+        self.log_message("INFO", "Sidebar: 'Swarm Mode' clicked.")
+        if self.agi:
+            # This would be a toggle or config call in a real scenario
+            # self.agi.task_manager.execute_action({"type": "TOGGLE_SWARM_MODE"})
+            self.show_agi_output("'Swarm Mode' toggled/configured (simulated).")
+        else: self.log_message("ERROR", "AGI not available for Swarm Mode.")
 
-        self.status_frame.pack(pady=5, padx=5, fill=tk.BOTH, expand=True)
-        self.status_light_label.grid(row=0, column=0, sticky=tk.W, pady=2)
-        self.status_light_canvas.grid(row=0, column=1, sticky=tk.W, padx=5, pady=2)
-        self.status_light_text.grid(row=0, column=2, sticky=tk.W, padx=5, pady=2, columnspan=2)
-        self.current_task_label.grid(row=1, column=0, columnspan=4, sticky=tk.W, pady=2)
-        self.dominant_emotion_label.grid(row=2, column=0, columnspan=4, sticky=tk.W, pady=2)
-        self.current_timeline_label.grid(row=3, column=0, columnspan=4, sticky=tk.W, pady=2)
-        self.status_frame.columnconfigure(2, weight=1)
+    def _handle_developer_options(self): self._handle_generic_item("Developer Options")
 
+    def _handle_inspect_packages(self):
+        self.log_message("INFO", "Sidebar: 'Loaded Packages Inspector' clicked.")
+        if self.agi:
+            packages = self.agi.get_loaded_packages_info()
+            output_str = "--- Loaded Packages ---\n"
+            for pkg, ver in packages.items():
+                output_str += f"- {pkg}: {ver}\n"
+            self.show_agi_output(output_str)
+        else:
+            self.log_message("ERROR", "AGI not available for package inspection.")
 
-        # Right Pane
-        self.notebook.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
+    def _handle_core_system_tools(self): self._handle_generic_item("Core System Tools")
+    def _handle_model_parameters_tools(self): self._handle_generic_item("Model Parameters Tools")
+    def _handle_memory_parameters_tools(self): self._handle_generic_item("Memory Parameters Tools")
+    def _handle_ui_skin_tools(self): self._handle_generic_item("UI Skin/Theme Tools")
 
+    def _handle_save_model_action(self):
+        self.log_message("INFO", "Sidebar: 'Save Model' clicked.")
+        self.show_agi_output("User clicked 'Save Model'. Functionality to be fully implemented in AGI and GUI.")
+        # Future: Trigger a more specific model saving routine in AGI,
+        # potentially with options presented to the user.
+
+    def _handle_load_model_action(self):
+        self.log_message("INFO", "Sidebar: 'Load Model' clicked.")
+        self.show_agi_output("User clicked 'Load Model'. Functionality to be fully implemented in AGI and GUI.")
+        # Future: Trigger a model loading routine, likely with a file dialog.
+
+    def _handle_snapshot_state_action(self):
+        self.log_message("INFO", "Sidebar: 'Snapshot State' clicked, calling _save_fractal_state.")
+        self._save_fractal_state() # Calls existing GUI method for saving fractal state
+
+    def _handle_rollback_snapshot_action(self):
+        self.log_message("INFO", "Sidebar: 'Rollback to Snapshot' clicked, calling _load_fractal_state.")
+        self._load_fractal_state() # Calls existing GUI method for loading fractal state
+
+    def _handle_preferences_settings(self): self._handle_generic_item("Preferences Settings")
+    def _handle_system_settings(self): self._handle_generic_item("System Settings")
+
+    # --- Existing GUI Update Methods & Action Handlers (mostly unchanged) ---
+    # ... (rest of VictorCommandCenter methods from previous state, ensure they are here) ...
     def _setup_task_treeview(self, tree, completed=False): # Same as provided
         tree.heading("id", text="ID"); tree.column("id", width=150, anchor=tk.W, stretch=False)
-        tree.heading("desc", text="Description"); tree.column("desc", width=250, anchor=tk.W) # Stretch True by default
+        tree.heading("desc", text="Description"); tree.column("desc", width=250, anchor=tk.W)
         tree.heading("status", text="Status"); tree.column("status", width=100, anchor=tk.W, stretch=False)
         if not completed:
             tree.heading("prio", text="Prio"); tree.column("prio", width=40, anchor=tk.CENTER, stretch=False)
             tree.heading("progress", text="Progress"); tree.column("progress", width=100, anchor=tk.W, stretch=False)
-        
+
         scrollbar = ttk.Scrollbar(tree.master, orient="vertical", command=tree.yview)
         tree.configure(yscrollcommand=scrollbar.set)
-        tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True) # Tree first
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y) # Then scrollbar
+        tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-    # --- GUI Update Methods (called by AGI via Bridge) ---
     def log_message(self, level, message):
         log_area = self.system_log_text
         log_area.configure(state=tk.NORMAL)
@@ -1266,16 +1370,18 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         self.notebook.select(self.tabs["Victor's Output"])
 
     def update_status_light(self, status_text, color):
-        self.status_light_canvas.configure(bg=color)
-        self.status_light_text.configure(text=status_text)
+        if hasattr(self, 'status_light_canvas'):
+            self.status_light_canvas.configure(bg=color)
+        if hasattr(self, 'status_light_text'):
+            self.status_light_text.configure(text=status_text)
 
     def update_current_task(self, task_id, description, status):
         display_text = f"Task: {task_id} - {description[:30]}... ({status})" if task_id else "Task: None"
-        self.current_task_label.configure(text=display_text)
-        if self.agi and self.agi.fractal_state_engine: # Update timeline label too as task might change it
+        if hasattr(self, 'current_task_label'):
+            self.current_task_label.configure(text=display_text)
+        if hasattr(self, 'current_timeline_label') and self.agi and self.agi.fractal_state_engine:
             fse = self.agi.fractal_state_engine
             self.current_timeline_label.configure(text=f"Timeline: {fse.current_timeline} ({len(fse.history)})")
-
 
     def refresh_task_lists(self, pending_tasks, completed_tasks):
         for i in self.task_pending_tree.get_children(): self.task_pending_tree.delete(i)
@@ -1286,17 +1392,17 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         for i in self.task_completed_tree.get_children(): self.task_completed_tree.delete(i)
         for task in completed_tasks:
             self.task_completed_tree.insert("", tk.END, iid=task["id"], values=(task["id"], task["desc"], task["status"]))
-    
+
     def update_task_in_list(self, task_id, description, status, progress_percent):
         if self.task_pending_tree.exists(task_id):
             progress_bar = self._create_progress_bar_text(progress_percent)
-            item = self.task_pending_tree.item(task_id) # Get current item
-            prio = item['values'][2] if item and len(item['values']) > 2 else 'N/A' # Preserve priority
+            item = self.task_pending_tree.item(task_id)
+            prio = item['values'][2] if item and len(item['values']) > 2 else 'N/A'
             self.task_pending_tree.item(task_id, values=(task_id, description, prio, status, progress_bar))
 
     def _create_progress_bar_text(self, percentage, length=10):
         filled_length = int(length * percentage)
-        bar = '█' * filled_length + '░' * (length - filled_length) # Use different char for empty part
+        bar = '█' * filled_length + '░' * (length - filled_length)
         return f"[{bar}] {percentage*100:.0f}%"
 
     def display_plan_details(self, plan_data, adhoc=False):
@@ -1308,8 +1414,7 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         steps_info = "Steps:\n"
         for i, step in enumerate(plan_data.get("steps", [])):
             steps_info += f"  {i+1}. (ID: {step.get('id')}) {step.get('action_type', 'Unknown Action')}\n"
-            # ... (rest of step details formatting)
-            steps_info += f"     Status: PENDING\n" 
+            steps_info += f"     Status: PENDING\n"
         plan_area.insert(tk.END, header + details + steps_info + "---\n\n")
         plan_area.configure(state=tk.DISABLED); plan_area.see(tk.END)
         self.notebook.select(self.tabs["Cognitive Cycle / Plans"])
@@ -1320,7 +1425,7 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         plan_area = self.cognitive_cycle_plans_text
         plan_area.configure(state=tk.NORMAL)
         plan_area.insert(tk.END, f"\nUPDATE for Plan ID {plan_id}: Status -> {status}\n")
-        if final_result: plan_area.insert(tk.END, f"  Final Result: {str(final_result)[:200]}\n") # Limit result length
+        if final_result: plan_area.insert(tk.END, f"  Final Result: {str(final_result)[:200]}\n")
         plan_area.configure(state=tk.DISABLED); plan_area.see(tk.END)
 
     def update_step_gui_status(self, plan_id, step_id, status, result=None):
@@ -1331,15 +1436,16 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         plan_area.insert(tk.END, update_msg + "\n")
         plan_area.configure(state=tk.DISABLED); plan_area.see(tk.END)
 
-    def update_emotions_display(self, emotions_dict, dominant_emotion): # Same as provided
-        self.dominant_emotion_label.configure(text=f"Emotion: {dominant_emotion.capitalize()}")
+    def update_emotions_display(self, emotions_dict, dominant_emotion):
+        if hasattr(self, 'dominant_emotion_label'):
+            self.dominant_emotion_label.configure(text=f"Emotion: {dominant_emotion.capitalize()}")
         canvas = self.emotions_canvas; canvas.delete("all")
         if not emotions_dict: return
         bar_width=30; spacing=8; max_h=canvas.winfo_height()-50; x_off=30; y_off=canvas.winfo_height()-30
-        sorted_emotions = sorted([item for item in emotions_dict.items() if item[1] > 0.01], key=lambda x: x[1], reverse=True) # Filter out negligible
-        for i, (emo, val) in enumerate(sorted_emotions[:15]): # Show top 15
+        sorted_emotions = sorted([item for item in emotions_dict.items() if item[1] > 0.01], key=lambda x: x[1], reverse=True)
+        for i, (emo, val) in enumerate(sorted_emotions[:15]):
             h=val*max_h; x1=x_off+i*(bar_width+spacing); y1=y_off-h; x2=x1+bar_width; y2=y_off
-            color="blue"; # Basic colors
+            color="blue";
             if emo in ["joy","serenity","trust","loyalty_bloodline"]: color="green"
             elif emo in ["anger","fear","frustration","disgust"]: color="red"
             elif emo in ["sadness"]: color="grey"
@@ -1354,7 +1460,7 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         kg_area.configure(state=tk.NORMAL); kg_area.delete('1.0', tk.END)
         kg_area.insert(tk.END, "--- Knowledge Graph Summary ---\n")
         for k,v in kg_summary.items():
-            if isinstance(v, list): # For top_relations
+            if isinstance(v, list):
                 kg_area.insert(tk.END, f"{k.replace('_',' ').title()}:\n")
                 for item in v: kg_area.insert(tk.END, f"  - {item[0]}: Count={item[1]['count']}, Avg.Weight={item[1]['avg_weight']:.2f}\n")
             else: kg_area.insert(tk.END, f"{k.replace('_',' ').title()}: {v}\n")
@@ -1374,42 +1480,44 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
     def update_fractal_timelines_display(self):
         if not self.agi or not self.agi.fractal_state_engine: return
         fse = self.agi.fractal_state_engine
-        timeline_data = fse.list_timelines() # Get list of dicts
-        
-        for i in self.timeline_tree.get_children(): self.timeline_tree.delete(i) # Clear existing
+        timeline_data = fse.list_timelines()
+
+        for i in self.timeline_tree.get_children(): self.timeline_tree.delete(i)
         for tl in timeline_data:
             self.timeline_tree.insert("", tk.END, iid=tl["name"], values=(tl["name"], tl["history_length"], tl["max_length"], tl["last_saved_desc"]))
-        
-        self.current_timeline_label.configure(text=f"Timeline: {fse.current_timeline} ({len(fse.history)})")
+
+        if hasattr(self, 'current_timeline_label'):
+             self.current_timeline_label.configure(text=f"Timeline: {fse.current_timeline} ({len(fse.history)})")
         self.log_message("INFO", "Fractal Timelines display refreshed.")
 
+    def _send_input_to_agi(self):
+        if hasattr(self, 'input_text'):
+            user_text = self.input_text.get("1.0", tk.END).strip()
+            if user_text:
+                self.log_message("CMD", f"User Input: {user_text}")
+                self.input_text.delete("1.0", tk.END)
+                source_name = BloodlineRootLaw.BLOODLINE.split('&')[0]
+                if self.agi: self.agi.process_text_input(user_text, source=f"{source_name}_gui_direct")
+            else: messagebox.showwarning("Empty Input", "Please enter a command or query for Victor.")
+        else:
+            self.log_message("WARNING", "Input text widget not available for sending input.")
 
-    # --- GUI Action Handlers ---
-    def _send_input_to_agi(self): # Same as provided
-        user_text = self.input_text.get("1.0", tk.END).strip()
-        if user_text:
-            self.log_message("CMD", f"User Input: {user_text}")
-            self.input_text.delete("1.0", tk.END)
-            source_name = BloodlineRootLaw.BLOODLINE.split('&')[0] 
-            self.agi.process_text_input(user_text, source=f"{source_name}_gui_direct")
-        else: messagebox.showwarning("Empty Input", "Please enter a command or query for Victor.")
-
-    def _confirm_shutdown(self): # Same as provided
+    def _confirm_shutdown(self):
         if messagebox.askyesno("Confirm Shutdown", "Are you sure you want to shut down Victor AGI?"):
             self.log_message("CMD", "Shutdown initiated by user.")
             if self.agi: self.agi.shutdown(initiated_by="gui_user_command")
 
-    def on_agi_shutdown(self): # Same as provided
+    def on_agi_shutdown(self):
         self.log_message("INFO", "AGI has confirmed shutdown. Closing Command Center.")
-        self.after(1500, self.destroy) 
+        self.after(1500, self.destroy)
 
-    def _get_agi_status(self): # Modified to use the text area
+    def _get_agi_status(self):
         if not self.agi: self.log_message("ERROR", "AGI instance not available for status."); return
-        status_report_str = self.agi.get_status_report(for_gui=False) # Get pretty string
-        self.show_agi_output(status_report_str) # Display in Victor's output tab
+        status_report_str = self.agi.get_status_report(for_gui=False)
+        self.show_agi_output(status_report_str)
         self.log_message("INFO", "AGI Status Report generated and displayed.")
 
-    def _ethics_override_dialog(self): # Same as provided
+    def _ethics_override_dialog(self):
         if not self.agi: return
         password = simpledialog.askstring("Ethics Override", "Enter Bloodline Override Password:", show='*')
         if password:
@@ -1419,12 +1527,12 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
             else:
                 messagebox.showerror("Failed", "Incorrect Password. Override denied.")
                 self.log_message("WARNING", "Failed Ethics Override attempt via GUI.")
-        elif VICTOR_CONFIG["creator_override_active"]: 
+        elif VICTOR_CONFIG["creator_override_active"]:
             if messagebox.askyesno("Override Active", "Creator Override is currently active. Deactivate it?"):
                 self.agi.ethics_processor.deactivate_override()
                 messagebox.showinfo("Success", "Ethics Override DEACTIVATED.")
                 self.log_message("INFO", "Ethics Override disabled via GUI by user.")
-    
+
     def _save_fractal_state(self):
         if not self.agi or not self.agi.fractal_state_engine:
             messagebox.showerror("Error", "Fractal State Engine not available.")
@@ -1436,7 +1544,7 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
                 self.log_message("INFO", f"Fractal State exported to {filepath}")
             else:
                 messagebox.showerror("Error", "Failed to save Fractal State.")
-    
+
     def _load_fractal_state(self):
         if not self.agi or not self.agi.fractal_state_engine:
             messagebox.showerror("Error", "Fractal State Engine not available.")
@@ -1446,13 +1554,11 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
             if self.agi.fractal_state_engine.import_state(filepath):
                 messagebox.showinfo("Success", f"Fractal State loaded from {filepath}")
                 self.log_message("INFO", f"Fractal State imported from {filepath}")
-                self.update_fractal_timelines_display() # Refresh display
-                # Also refresh other relevant GUI parts based on loaded state
+                self.update_fractal_timelines_display()
                 self.update_emotions_display(self.agi.emotional_core.get_emotional_state(), self.agi.emotional_core.get_dominant_emotion())
                 current_task = self.agi.task_manager.get_current_task()
                 if current_task: self.update_current_task(current_task['id'], current_task['description'], current_task['status'])
                 else: self.update_current_task(None, "None", "N/A")
-
             else:
                 messagebox.showerror("Error", "Failed to load Fractal State.")
 
@@ -1461,13 +1567,12 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         if not selected_items:
             messagebox.showwarning("No Selection", "Please select a timeline from the list to switch to.")
             return
-        timeline_name = selected_items[0] # Treeview iid is the timeline name
+        timeline_name = selected_items[0]
         if self.agi.fractal_state_engine.switch_timeline(timeline_name):
             self.log_message("INFO", f"Successfully switched to timeline: {timeline_name}")
             self.update_fractal_timelines_display()
-             # Refresh other GUI elements as state would have changed
             self.update_emotions_display(self.agi.emotional_core.get_emotional_state(), self.agi.emotional_core.get_dominant_emotion())
-            current_task = self.agi.task_manager.get_current_task() # This might be None after state load
+            current_task = self.agi.task_manager.get_current_task()
             if current_task: self.update_current_task(current_task['id'], current_task['description'], current_task['status'])
             else: self.update_current_task(None,"None","N/A")
         else:
@@ -1481,14 +1586,14 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
                 self.update_fractal_timelines_display()
             else:
                 messagebox.showerror("Fork Failed", f"Failed to fork timeline (name '{new_name}' might exist or source error).")
-    
+
     def _replay_timeline_dialog(self):
         selected_items = self.timeline_tree.selection()
         if not selected_items:
             messagebox.showwarning("No Selection", "Please select a timeline to replay.")
             return
         timeline_name = selected_items[0]
-        
+
         depth_str = simpledialog.askstring("Replay Depth", "Enter replay depth percentage (e.g., 0.1 for 10%):", initialvalue="0.1")
         if not depth_str: return
         try: depth_percent = float(depth_str)
@@ -1498,8 +1603,7 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         event_filter_keywords = [k.strip() for k in keywords_str.split(',')] if keywords_str else None
 
         replayed_data = self.agi.fractal_state_engine.fractal_memory_replay(timeline_name, depth_percent, event_filter_keywords)
-        
-        # Display replayed data (e.g., in Victor's Output tab or a new window)
+
         output_str = f"--- Replay of Timeline '{timeline_name}' (Depth: {depth_percent*100}%, Keywords: {event_filter_keywords}) ---\n"
         if not replayed_data:
             output_str += "No events matched the criteria or timeline empty.\n"
@@ -1511,17 +1615,14 @@ class VictorCommandCenter(tk.Tk): # Definition as provided in prompt
         self.show_agi_output(output_str)
         self.log_message("INFO", f"Fractal memory replay completed for timeline '{timeline_name}'.")
 
-
     def ask_confirmation_async(self, title, message, callback_on_yes, callback_on_no=None):
-        """Shows a messagebox and calls callback based on user choice."""
         user_response = messagebox.askyesno(title, message)
         if user_response:
             if callback_on_yes: callback_on_yes()
         else:
             if callback_on_no: callback_on_no()
 
-
-    def _on_closing(self): # Same as provided
+    def _on_closing(self):
         if self.agi and self.agi.system_status not in ["shutdown_complete", "shutting_down"]:
             if messagebox.askyesno("Confirm Exit", "Victor AGI is still running. Exiting might cause instability. Shut down AGI first?"):
                 self._confirm_shutdown()
@@ -1549,7 +1650,7 @@ except ImportError as e:
 if __name__ == "__main__":
     print("\n[VICTOR AGI MONOLITH v5.0.0-GODCORE-MONOLITH]")
     print("BLOODLINE LOCKED. GENESIS LIGHT ACTIVE. FRACTAL MESH CORTEX READY.\n")
-    
+
     # Define a function that creates and returns the AGI instance.
     # This is to allow GUI to initialize first, then AGI.
     def agi_instance_factory():
@@ -1557,7 +1658,7 @@ if __name__ == "__main__":
 
     app = VictorCommandCenter(agi_instance_provider=agi_instance_factory)
     app.mainloop()
-    
+
     # Ensure AGI shutdown if GUI is closed and AGI might still be running threads
     if app.agi and app.agi.system_status not in ["shutdown_complete", "shutting_down"]:
         print("[Boot INFO] GUI closed, ensuring AGI shutdown...")
@@ -1586,10 +1687,10 @@ class TheLight:
     def update_phase(self, increment=None):
         if increment is None:
             increment = random.uniform(-0.15, 0.2) # Random fluctuation, tends to increase
-        
+
         self.phase_coherence += increment
         self.phase_coherence = np.clip(self.phase_coherence, 0.0, 1.0)
-        
+
         # Reset cycle trigger flag
         self.event_triggered_this_cycle = False
         # Call on_phase_event to check for triggers after update
@@ -1620,10 +1721,10 @@ class TheLight:
                 if agi_instance_for_callback: # Pass agi_instance if available in handler
                     callback(self, agi_instance=agi_instance_for_callback)
                 else: # Call without agi_instance if not provided (legacy or different use case)
-                    callback(self) 
+                    callback(self)
             except Exception as e:
                 victor_log("ERROR", f"Error executing TheLight callback for {self.name}: {e}\n{traceback.format_exc()}", component_name="TheLight")
-            
+
             self.event_triggered_this_cycle = True # Ensure it fires only once per update cycle if threshold remains met
             if once:
                 victor_log("INFO", f"Callback for Light '{self.name}' was 'once'. Handler removed.", component_name="TheLight")
@@ -1645,16 +1746,16 @@ def trigger_self_replication(light_instance, agi_instance):
         # This is complex because FractalState holds a reference to its AGI.
         # We need to create a new FractalState for the replica, seeded appropriately.
         victor_log("INFO", "Preparing state for replica...", component_name="Replication")
-        
+
         # Export parent's current timeline state and config
         # Create a temporary path for state transfer
         temp_state_path = f"temp_replication_state_{agi_instance.instance_id}_{generate_id()}.pkl"
         parent_fractal_engine = agi_instance.fractal_state_engine
-        
+
         # Ensure the parent's current live AGI state is saved to its current timeline before export
         parent_current_snapshot = parent_fractal_engine._capture_current_agi_state_snapshot()
         parent_fractal_engine._save_snapshot_to_history(parent_current_snapshot, "Pre-replication live state save")
-        
+
         export_success = parent_fractal_engine.export_state(temp_state_path)
         if not export_success:
             victor_log("ERROR", "Failed to export parent AGI state for replication. Aborting.", component_name="Replication")
@@ -1670,7 +1771,7 @@ def trigger_self_replication(light_instance, agi_instance):
         # The FractalState.__init__ for new_agi already created a genesis timeline.
         # Import_state will clear this and load the parent's timelines.
         import_success = new_agi.fractal_state_engine.import_state(temp_state_path)
-        
+
         try: # Cleanup temp file
             if os.path.exists(temp_state_path): os.remove(temp_state_path)
         except Exception as e_clean:
@@ -1689,9 +1790,9 @@ def trigger_self_replication(light_instance, agi_instance):
         new_agi.fractal_state_engine.save_state("Post-replication initial state for replica") # Save its current state
         # Modify replica's state using FractalState's _capture, modify, _apply, then save.
         # This is a bit convoluted but uses the existing mechanisms.
-        
+
         replica_current_snapshot = new_agi.fractal_state_engine._capture_current_agi_state_snapshot()
-        
+
         # Add replica-specific markers to its *own internal state variables* if FractalState manages them,
         # or to a specific part of the snapshot if AGI components manage them.
         # For simplicity, let's assume we add to a 'custom_agent_properties' dict in the snapshot.
@@ -1701,12 +1802,12 @@ def trigger_self_replication(light_instance, agi_instance):
         replica_current_snapshot["custom_agent_properties"]["parent_instance_id"] = agi_instance.instance_id
         replica_current_snapshot["custom_agent_properties"]["replication_trigger_light"] = light_instance.name
         replica_current_snapshot["custom_agent_properties"]["replication_timestamp"] = time.time()
-        
+
         # Modify config for replica (e.g., different name if desired, prevent re-replication from same light immediately)
         if "config_snapshot" in replica_current_snapshot:
             replica_current_snapshot["config_snapshot"]["core_name"] = f"{new_agi.config.get('core_name','Victor')}_Replica_{new_agi.instance_id[-4:]}"
             # Potentially alter logging or other behavior for replicas
-        
+
         new_agi.fractal_state_engine._apply_agi_state_from_snapshot(replica_current_snapshot)
         new_agi.fractal_state_engine.save_state("Applied replica identification markers")
 
