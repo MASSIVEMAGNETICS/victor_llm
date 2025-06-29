@@ -1,3 +1,6 @@
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# Example outputs
+examples/*.json

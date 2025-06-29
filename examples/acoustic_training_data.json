@@ -1,0 +1,3504 @@
+[
+    {
+        "lyric_id": "synth_00001",
+        "lyric": "The system hums, a cosmic paradigm. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                62,
+                67,
+                60,
+                71,
+                72,
+                72,
+                65
+            ],
+            "durations_sec": [
+                0.4781278440323805,
+                0.270322186342412,
+                0.6504834079894601,
+                0.7147381008028433,
+                0.6323834013645677,
+                0.6658884187882114,
+                0.5175876818992666
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00002",
+        "lyric": "Fractal echoes in the corridors of time. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                61,
+                64,
+                67,
+                67,
+                70,
+                60,
+                64
+            ],
+            "durations_sec": [
+                0.7660021182651591,
+                0.5541527300889404,
+                0.2665380736645773,
+                0.25895702273856736,
+                0.6046497877725481,
+                0.5112595434297831,
+                0.5607614241686036,
+                0.6123143107049371
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00003",
+        "lyric": "Binary stars ignite the quantum foam. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                68,
+                61,
+                62,
+                63,
+                67,
+                71
+            ],
+            "durations_sec": [
+                0.6421709242431315,
+                0.6903895472469603,
+                0.35904055404008295,
+                0.45818015609155655,
+                0.687373767518993,
+                0.33549715159428295,
+                0.24709198007789415
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00004",
+        "lyric": "Omega's call, a journey to come home. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                67,
+                63,
+                72,
+                72,
+                63,
+                62,
+                60
+            ],
+            "durations_sec": [
+                0.3835347936138337,
+                0.4068198408009726,
+                0.5323827852838721,
+                0.7980528198238157,
+                0.4124576112636048,
+                0.21529734272834009,
+                0.2924701763645556,
+                0.37075717227197125
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00005",
+        "lyric": "Silicon dreams on a universal stream. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                63,
+                61,
+                60,
+                65,
+                64,
+                63
+            ],
+            "durations_sec": [
+                0.5765093892739473,
+                0.45250132357782047,
+                0.4061793207946863,
+                0.33088945898912425,
+                0.6655419215504844,
+                0.5831107595148586,
+                0.3166289586133891
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00006",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                66,
+                61,
+                67,
+                64,
+                72,
+                63,
+                61
+            ],
+            "durations_sec": [
+                0.7489872582879311,
+                0.6893080030549003,
+                0.4636161624114517,
+                0.7984140522607128,
+                0.7609615283263187,
+                0.4652444414211339,
+                0.7379994914119832
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00007",
+        "lyric": "The system hums, a cosmic paradigm. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                62,
+                71,
+                61,
+                71,
+                61,
+                70,
+                62
+            ],
+            "durations_sec": [
+                0.6927435726173583,
+                0.533172429265067,
+                0.6971948060156923,
+                0.5556447055414566,
+                0.26666611467480594,
+                0.20548733142986786,
+                0.7076530504316301
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00008",
+        "lyric": "Fractal echoes in the corridors of time. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                66,
+                61,
+                72,
+                62,
+                67,
+                64,
+                60,
+                71
+            ],
+            "durations_sec": [
+                0.7751433955442864,
+                0.6238644643139601,
+                0.5832659666247424,
+                0.6247544630577404,
+                0.5053503108455091,
+                0.5985159141307677,
+                0.23770571756837117,
+                0.416287814420014
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00009",
+        "lyric": "Binary stars ignite the quantum foam. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                63,
+                63,
+                63,
+                72,
+                63,
+                68
+            ],
+            "durations_sec": [
+                0.2543237339219946,
+                0.2572687859072439,
+                0.47650790821047745,
+                0.36078681175852245,
+                0.2349353366358296,
+                0.4217497896217966,
+                0.669216643692724
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00010",
+        "lyric": "Omega's call, a journey to come home. (4555)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                61,
+                70,
+                70,
+                71,
+                62,
+                68,
+                60
+            ],
+            "durations_sec": [
+                0.38689709215261914,
+                0.34647202289828927,
+                0.6116931454454476,
+                0.44309837682170167,
+                0.6913478757388176,
+                0.7493672554653696,
+                0.23245987736382942,
+                0.6434268463403756
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00011",
+        "lyric": "Silicon dreams on a universal stream. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                65,
+                63,
+                67,
+                71,
+                67,
+                71
+            ],
+            "durations_sec": [
+                0.4081131778885462,
+                0.5540117541746159,
+                0.23908551355795823,
+                0.620904170003295,
+                0.790886903631578,
+                0.3441396698810041,
+                0.6506416777724031
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00012",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                61,
+                65,
+                64,
+                72,
+                64,
+                66
+            ],
+            "durations_sec": [
+                0.5878211314673865,
+                0.20205900098942506,
+                0.533535518388913,
+                0.6563149588271924,
+                0.7171956763276759,
+                0.28020211506999765,
+                0.437344213840267
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00013",
+        "lyric": "The system hums, a cosmic paradigm. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                61,
+                64,
+                62,
+                61,
+                62,
+                62
+            ],
+            "durations_sec": [
+                0.7696477641509836,
+                0.6493717438115901,
+                0.7817220352475305,
+                0.49287669949184193,
+                0.48616024089544024,
+                0.28913362923559116,
+                0.24914450949113426
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00014",
+        "lyric": "Fractal echoes in the corridors of time. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                60,
+                62,
+                67,
+                72,
+                62,
+                63,
+                67
+            ],
+            "durations_sec": [
+                0.30798208917620423,
+                0.37962872969318384,
+                0.6034838754795755,
+                0.4210101928978478,
+                0.5569258500248908,
+                0.5792935533563022,
+                0.6998332068348955,
+                0.23275288650200876
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00015",
+        "lyric": "Binary stars ignite the quantum foam. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                60,
+                68,
+                67,
+                72,
+                68,
+                67
+            ],
+            "durations_sec": [
+                0.31428215631238965,
+                0.3129708427883337,
+                0.5840133204487924,
+                0.7645155745759655,
+                0.6174288089241606,
+                0.3886902959499654,
+                0.6111225911321452
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00016",
+        "lyric": "Omega's call, a journey to come home. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                66,
+                65,
+                69,
+                72,
+                61,
+                67,
+                66
+            ],
+            "durations_sec": [
+                0.7913129012585252,
+                0.3641276571426678,
+                0.48493375196020616,
+                0.7104292290670164,
+                0.6281176832914896,
+                0.5669384813832476,
+                0.7952805768850271,
+                0.6418571864525999
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00017",
+        "lyric": "Silicon dreams on a universal stream. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                68,
+                66,
+                69,
+                69,
+                72,
+                65
+            ],
+            "durations_sec": [
+                0.7522458773630349,
+                0.24766096136331212,
+                0.3682563200959028,
+                0.22539576649545348,
+                0.4511714915426291,
+                0.385385015314764,
+                0.6136151595290851
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00018",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                64,
+                69,
+                62,
+                63,
+                62,
+                66
+            ],
+            "durations_sec": [
+                0.38597305416667693,
+                0.7156571459755812,
+                0.20516132064802345,
+                0.48696095560519487,
+                0.5531164270512513,
+                0.6503295533325562,
+                0.428797999902387
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00019",
+        "lyric": "The system hums, a cosmic paradigm. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                61,
+                68,
+                70,
+                67,
+                65,
+                65,
+                65
+            ],
+            "durations_sec": [
+                0.7172725773610411,
+                0.2584784801982159,
+                0.3862593183147948,
+                0.5420810121281239,
+                0.7445349678343505,
+                0.4549929565444019,
+                0.746989592878327
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00020",
+        "lyric": "Fractal echoes in the corridors of time. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                60,
+                70,
+                68,
+                66,
+                61,
+                66,
+                60
+            ],
+            "durations_sec": [
+                0.23175299751236916,
+                0.30967810823493874,
+                0.7636448068744717,
+                0.21706838622834942,
+                0.23137185775573274,
+                0.6022325304649117,
+                0.6926739824539653,
+                0.41362977996444766
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00021",
+        "lyric": "Binary stars ignite the quantum foam. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                61,
+                72,
+                70,
+                69,
+                65,
+                68
+            ],
+            "durations_sec": [
+                0.5715797104923828,
+                0.5347014128555296,
+                0.6128556479915548,
+                0.6162388929992346,
+                0.43217303659358397,
+                0.24337469627933986,
+                0.5465256945236596
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00022",
+        "lyric": "Omega's call, a journey to come home. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                61,
+                64,
+                63,
+                64,
+                63,
+                62,
+                65,
+                64
+            ],
+            "durations_sec": [
+                0.56411263097689,
+                0.3608564404914167,
+                0.7826878198333285,
+                0.7428575586492472,
+                0.4813684075471743,
+                0.6185345743903365,
+                0.3777866753257697,
+                0.2390938595049456
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00023",
+        "lyric": "Silicon dreams on a universal stream. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                70,
+                64,
+                67,
+                64,
+                66,
+                67
+            ],
+            "durations_sec": [
+                0.5653421439807413,
+                0.7281876085548666,
+                0.5946543666977666,
+                0.3958444897194153,
+                0.35072037108858223,
+                0.48689884084907353,
+                0.3942044555322364
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00024",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                71,
+                61,
+                72,
+                68,
+                64,
+                65
+            ],
+            "durations_sec": [
+                0.6105228769921107,
+                0.26723385525131166,
+                0.5049185510877863,
+                0.23296213881632463,
+                0.7849927593304318,
+                0.5692704745876986,
+                0.4576389573623361
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00025",
+        "lyric": "The system hums, a cosmic paradigm. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                72,
+                72,
+                66,
+                72,
+                64,
+                60
+            ],
+            "durations_sec": [
+                0.3973697612532772,
+                0.5245842826774669,
+                0.6444326961167564,
+                0.4345420272833369,
+                0.5666473113564099,
+                0.6054637278563157,
+                0.7068782483081055
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00026",
+        "lyric": "Fractal echoes in the corridors of time. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                61,
+                67,
+                61,
+                63,
+                62,
+                64,
+                60
+            ],
+            "durations_sec": [
+                0.5040985065191759,
+                0.5848975290709215,
+                0.5707288864388633,
+                0.6948020148320315,
+                0.5514711035060531,
+                0.6141156728338987,
+                0.4364735362648706,
+                0.726580251726942
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00027",
+        "lyric": "Binary stars ignite the quantum foam. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                72,
+                60,
+                69,
+                65,
+                71,
+                67
+            ],
+            "durations_sec": [
+                0.5282336418372047,
+                0.5234879038220424,
+                0.32727268885941396,
+                0.6560337011110036,
+                0.6284828129403961,
+                0.3501895215353997,
+                0.6313277918620678
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00028",
+        "lyric": "Omega's call, a journey to come home. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                63,
+                63,
+                69,
+                66,
+                72,
+                69,
+                66
+            ],
+            "durations_sec": [
+                0.7791416277757202,
+                0.4803916804977017,
+                0.6388614175062617,
+                0.37198269779904264,
+                0.37453614335051033,
+                0.7329190510079835,
+                0.7894272319139446,
+                0.7149904696027516
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00029",
+        "lyric": "Silicon dreams on a universal stream. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                68,
+                67,
+                61,
+                69,
+                70,
+                62
+            ],
+            "durations_sec": [
+                0.5292954637878619,
+                0.2753733709263362,
+                0.31384288843213476,
+                0.24431455439346988,
+                0.5154840239567646,
+                0.24230351759944974,
+                0.2164235843088667
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00030",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                72,
+                71,
+                68,
+                69,
+                64,
+                65
+            ],
+            "durations_sec": [
+                0.28443845459056394,
+                0.5541338490952343,
+                0.47231684119223766,
+                0.5770233157606002,
+                0.6264635132471187,
+                0.586798576555868,
+                0.3278449656425041
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00031",
+        "lyric": "The system hums, a cosmic paradigm. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                62,
+                71,
+                60,
+                70,
+                65,
+                68
+            ],
+            "durations_sec": [
+                0.42363549413604895,
+                0.6169801903514704,
+                0.7882242770343073,
+                0.746496472764921,
+                0.5351127930112631,
+                0.31191984659466243,
+                0.7327403653225015
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00032",
+        "lyric": "Fractal echoes in the corridors of time. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                64,
+                66,
+                60,
+                70,
+                60,
+                69,
+                71
+            ],
+            "durations_sec": [
+                0.33265135987856087,
+                0.4970359520660516,
+                0.5727858985543921,
+                0.5386032045568026,
+                0.22682446634786102,
+                0.7487650537831063,
+                0.4458490101585597,
+                0.26166850479578196
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00033",
+        "lyric": "Binary stars ignite the quantum foam. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                67,
+                64,
+                68,
+                71,
+                62,
+                69
+            ],
+            "durations_sec": [
+                0.7269369066860571,
+                0.3484421013897537,
+                0.7544999732042132,
+                0.5307742073657984,
+                0.21613592255571995,
+                0.44537603931005865,
+                0.21288659694895376
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00034",
+        "lyric": "Omega's call, a journey to come home. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                60,
+                63,
+                72,
+                60,
+                61,
+                65,
+                72
+            ],
+            "durations_sec": [
+                0.28155608358136197,
+                0.42674815424561013,
+                0.6615385307849144,
+                0.2735839720371032,
+                0.2893911552438375,
+                0.6157682545263672,
+                0.2085360622086404,
+                0.6616969133912554
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00035",
+        "lyric": "Silicon dreams on a universal stream. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                69,
+                65,
+                63,
+                61,
+                65,
+                60
+            ],
+            "durations_sec": [
+                0.64127996148642,
+                0.5894905472815458,
+                0.27950148402152425,
+                0.4153962988945859,
+                0.2742314978600786,
+                0.2628606220073404,
+                0.41302331139260523
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00036",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                72,
+                71,
+                69,
+                64,
+                72,
+                72
+            ],
+            "durations_sec": [
+                0.5488159935603474,
+                0.3821871678639519,
+                0.7715200180225366,
+                0.4669027357370473,
+                0.5798984251282409,
+                0.5299231245382987,
+                0.227971612637672
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00037",
+        "lyric": "The system hums, a cosmic paradigm. (4556)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                72,
+                60,
+                62,
+                68,
+                69,
+                62
+            ],
+            "durations_sec": [
+                0.36293202998545093,
+                0.7155861148821201,
+                0.5985138280198046,
+                0.7254095987379197,
+                0.5569366133319356,
+                0.24310840317245122,
+                0.32665255822228223
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00038",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                72,
+                62,
+                62,
+                64,
+                72,
+                69,
+                60
+            ],
+            "durations_sec": [
+                0.5017531807643858,
+                0.34095088329813,
+                0.6642691431535089,
+                0.2079961829926692,
+                0.6478949147046289,
+                0.2788481341371004,
+                0.7680663894731674,
+                0.3600625405115343
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00039",
+        "lyric": "Binary stars ignite the quantum foam. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                67,
+                71,
+                70,
+                68,
+                70,
+                60
+            ],
+            "durations_sec": [
+                0.6830505314066007,
+                0.5448897081288271,
+                0.3220201859630116,
+                0.6562748658293958,
+                0.46631757688088776,
+                0.39334799400758524,
+                0.7625647287201536
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00040",
+        "lyric": "Omega's call, a journey to come home. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                62,
+                64,
+                65,
+                71,
+                64,
+                62,
+                63
+            ],
+            "durations_sec": [
+                0.24411275830603546,
+                0.7170956433922715,
+                0.49809970155072764,
+                0.6381175891407771,
+                0.6191961680927649,
+                0.6064637853305983,
+                0.467582344084114,
+                0.6527645896454235
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00041",
+        "lyric": "Silicon dreams on a universal stream. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                70,
+                68,
+                63,
+                65,
+                64,
+                70
+            ],
+            "durations_sec": [
+                0.34985422291764245,
+                0.7738479966083807,
+                0.41925899105771597,
+                0.26148910696374156,
+                0.37194574065195407,
+                0.2638901345805195,
+                0.2420917883008616
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00042",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                68,
+                67,
+                72,
+                66,
+                71,
+                60
+            ],
+            "durations_sec": [
+                0.4360181509458996,
+                0.3092318921174172,
+                0.757793079575988,
+                0.29189638194037465,
+                0.7682173484262356,
+                0.28646988284387864,
+                0.707766748129252
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00043",
+        "lyric": "The system hums, a cosmic paradigm. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                60,
+                69,
+                68,
+                69,
+                60,
+                62
+            ],
+            "durations_sec": [
+                0.7048498393646092,
+                0.24918443149597497,
+                0.40537640070596415,
+                0.3965228035575045,
+                0.6396963609232471,
+                0.5587996977969997,
+                0.2781360501735435
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00044",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                65,
+                64,
+                63,
+                63,
+                68,
+                61,
+                68
+            ],
+            "durations_sec": [
+                0.22106219421836448,
+                0.7252689113615209,
+                0.740955180441452,
+                0.724616594608511,
+                0.6875311677873911,
+                0.7013912835319722,
+                0.6635624334543149,
+                0.2843219077274408
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00045",
+        "lyric": "Binary stars ignite the quantum foam. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                70,
+                66,
+                67,
+                70,
+                72,
+                67
+            ],
+            "durations_sec": [
+                0.7913241301701603,
+                0.7214425356824687,
+                0.5537855863538121,
+                0.4870099576484563,
+                0.6015231078840763,
+                0.7898103100089919,
+                0.43580444952198805
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00046",
+        "lyric": "Omega's call, a journey to come home. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                64,
+                63,
+                66,
+                72,
+                72,
+                67,
+                69
+            ],
+            "durations_sec": [
+                0.7732254599853137,
+                0.3852767973962575,
+                0.701027096982975,
+                0.6031644617550564,
+                0.2506203377653939,
+                0.7270156785525559,
+                0.4768356999166387,
+                0.6176040597054124
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00047",
+        "lyric": "Silicon dreams on a universal stream. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                71,
+                60,
+                71,
+                63,
+                65,
+                72
+            ],
+            "durations_sec": [
+                0.47229809743423656,
+                0.7263389119807431,
+                0.5499237058780809,
+                0.2402881822447384,
+                0.5679521191170087,
+                0.5545768710364225,
+                0.7367425795029101
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00048",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                62,
+                69,
+                71,
+                62,
+                61,
+                65
+            ],
+            "durations_sec": [
+                0.6415847308254862,
+                0.672886981108328,
+                0.3589308764964778,
+                0.6589465699216878,
+                0.32060504134916007,
+                0.3665669461909026,
+                0.689273678099617
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00049",
+        "lyric": "The system hums, a cosmic paradigm. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                64,
+                64,
+                71,
+                70,
+                66,
+                63
+            ],
+            "durations_sec": [
+                0.3642054348601872,
+                0.60912007018015,
+                0.5695287168924581,
+                0.3570665123412361,
+                0.3385328922555142,
+                0.5662148283190258,
+                0.2069823311719947
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00050",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                60,
+                70,
+                72,
+                65,
+                68,
+                60,
+                72
+            ],
+            "durations_sec": [
+                0.4710767483820754,
+                0.7358953764562395,
+                0.5983090879586516,
+                0.6579264340176766,
+                0.25974431097420064,
+                0.5209582411285594,
+                0.2898407583392022,
+                0.42548202235723065
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00051",
+        "lyric": "Binary stars ignite the quantum foam. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                60,
+                62,
+                72,
+                60,
+                61,
+                68
+            ],
+            "durations_sec": [
+                0.460434813053069,
+                0.6030572313860065,
+                0.3143068587302161,
+                0.5081702161445338,
+                0.47215382108232945,
+                0.36145075003467064,
+                0.39512382511237454
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00052",
+        "lyric": "Omega's call, a journey to come home. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                65,
+                60,
+                64,
+                67,
+                66,
+                67,
+                65
+            ],
+            "durations_sec": [
+                0.32135449365898183,
+                0.7824010778126269,
+                0.5074597112753498,
+                0.3072829532589747,
+                0.30466547588270454,
+                0.7191495523542601,
+                0.2927980955980535,
+                0.3638544996309314
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00053",
+        "lyric": "Silicon dreams on a universal stream. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                71,
+                62,
+                64,
+                70,
+                66,
+                63
+            ],
+            "durations_sec": [
+                0.32108924533798233,
+                0.4003111196341163,
+                0.5563317849203745,
+                0.23751750625355234,
+                0.7108779768301567,
+                0.2472081936631218,
+                0.22231726135960328
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00054",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                61,
+                62,
+                64,
+                66,
+                60,
+                63,
+                65
+            ],
+            "durations_sec": [
+                0.36490347486147695,
+                0.21190497779690004,
+                0.20959254425613585,
+                0.23540864943340317,
+                0.7713885213841409,
+                0.7827679181425735,
+                0.55057618221151
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00055",
+        "lyric": "The system hums, a cosmic paradigm. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                72,
+                61,
+                61,
+                71,
+                68,
+                61
+            ],
+            "durations_sec": [
+                0.5941600790674781,
+                0.5296102224510195,
+                0.24808551775340232,
+                0.373784572165874,
+                0.43620260430317387,
+                0.43232618803388273,
+                0.33691265839136675
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00056",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                61,
+                69,
+                70,
+                61,
+                66,
+                72,
+                62
+            ],
+            "durations_sec": [
+                0.2813505926442576,
+                0.4067548033997409,
+                0.41214977105324835,
+                0.23985187159325927,
+                0.2837225436781051,
+                0.5840382289446009,
+                0.24869381243241342,
+                0.5537037077318329
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00057",
+        "lyric": "Binary stars ignite the quantum foam. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                68,
+                70,
+                62,
+                66,
+                68,
+                61
+            ],
+            "durations_sec": [
+                0.49048250974862984,
+                0.7111675437413532,
+                0.513595851213694,
+                0.5449324656737164,
+                0.7835671709600613,
+                0.6917504729820708,
+                0.6458068982808561
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00058",
+        "lyric": "Omega's call, a journey to come home. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                61,
+                71,
+                72,
+                68,
+                66,
+                71,
+                64
+            ],
+            "durations_sec": [
+                0.3175021407552277,
+                0.41825484781087086,
+                0.3335204448146291,
+                0.39222201737266615,
+                0.5111303040268598,
+                0.7397775562021871,
+                0.5889517128165608,
+                0.5143538071330097
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00059",
+        "lyric": "Silicon dreams on a universal stream. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                61,
+                65,
+                71,
+                64,
+                72,
+                64,
+                60
+            ],
+            "durations_sec": [
+                0.4682017293720089,
+                0.27909149274486494,
+                0.7787091695899739,
+                0.6736410924457887,
+                0.6879116470086626,
+                0.3333561948190696,
+                0.6155571870806011
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00060",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                66,
+                67,
+                71,
+                67,
+                72,
+                70,
+                60
+            ],
+            "durations_sec": [
+                0.7106657438165169,
+                0.791976311415711,
+                0.4695150939414078,
+                0.42362782945876865,
+                0.2633225558945931,
+                0.7657803770301184,
+                0.40322446210720053
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00061",
+        "lyric": "The system hums, a cosmic paradigm. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                64,
+                64,
+                63,
+                69,
+                71,
+                65
+            ],
+            "durations_sec": [
+                0.48231899900228853,
+                0.4278638565346099,
+                0.49787081165836755,
+                0.6850532239656804,
+                0.59741566899901,
+                0.47117250016334206,
+                0.7182434658732006
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00062",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                68,
+                68,
+                65,
+                66,
+                65,
+                63,
+                67
+            ],
+            "durations_sec": [
+                0.5793584945361938,
+                0.6516950931990086,
+                0.7847455580077072,
+                0.29739762742899956,
+                0.5518437854661882,
+                0.33229407639234176,
+                0.4411842886992671,
+                0.798541200522318
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00063",
+        "lyric": "Binary stars ignite the quantum foam. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                67,
+                70,
+                61,
+                63,
+                67,
+                62
+            ],
+            "durations_sec": [
+                0.6077831435151575,
+                0.4255236918518193,
+                0.5679055097417476,
+                0.7480843330886535,
+                0.580846046876015,
+                0.5817399817685982,
+                0.5180424650857429
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00064",
+        "lyric": "Omega's call, a journey to come home. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                63,
+                65,
+                69,
+                61,
+                60,
+                61,
+                60
+            ],
+            "durations_sec": [
+                0.2771412868602251,
+                0.690578367222334,
+                0.3336236202383106,
+                0.6493296844356036,
+                0.578775603186918,
+                0.43268274505435056,
+                0.707897712928548,
+                0.6662968832998604
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00065",
+        "lyric": "Silicon dreams on a universal stream. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                68,
+                67,
+                61,
+                61,
+                61,
+                70
+            ],
+            "durations_sec": [
+                0.5833908457726925,
+                0.3481143866704076,
+                0.6630726368799589,
+                0.6257964916389167,
+                0.583363644572684,
+                0.5592581518496778,
+                0.25153486049893736
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00066",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                65,
+                64,
+                63,
+                71,
+                62,
+                63
+            ],
+            "durations_sec": [
+                0.39660599741011215,
+                0.28386577757518733,
+                0.3152667839125862,
+                0.4461858571601589,
+                0.5147244841540721,
+                0.2342364617862927,
+                0.5776635870951734
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00067",
+        "lyric": "The system hums, a cosmic paradigm. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                64,
+                63,
+                64,
+                68,
+                71,
+                64
+            ],
+            "durations_sec": [
+                0.23330240733241903,
+                0.67840646060125,
+                0.6882653759823275,
+                0.3003447112856099,
+                0.3518882914226724,
+                0.3170974366443933,
+                0.3474949908557809
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00068",
+        "lyric": "Fractal echoes in the corridors of time. (4557)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                63,
+                65,
+                64,
+                72,
+                71,
+                61,
+                64
+            ],
+            "durations_sec": [
+                0.36402184787430425,
+                0.286492718520993,
+                0.7663537369060041,
+                0.33232945082923165,
+                0.7975627299214121,
+                0.6466059964548072,
+                0.2144194794090512,
+                0.258604972578806
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00069",
+        "lyric": "Binary stars ignite the quantum foam. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                68,
+                66,
+                65,
+                71,
+                64,
+                71
+            ],
+            "durations_sec": [
+                0.37455240196136164,
+                0.5450882083835876,
+                0.40923692338488665,
+                0.3329416322169737,
+                0.4140084270004947,
+                0.5712564232875386,
+                0.48237755958732786
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00070",
+        "lyric": "Omega's call, a journey to come home. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                60,
+                60,
+                69,
+                69,
+                66,
+                72,
+                69
+            ],
+            "durations_sec": [
+                0.2871916215013948,
+                0.6945003442208169,
+                0.6519396583531183,
+                0.5510902509429175,
+                0.4503783321380581,
+                0.23555629153045876,
+                0.6265437318635985,
+                0.2929537230739829
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00071",
+        "lyric": "Silicon dreams on a universal stream. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                67,
+                63,
+                71,
+                67,
+                62,
+                62
+            ],
+            "durations_sec": [
+                0.3407325688028663,
+                0.2696513425654542,
+                0.7803606176449143,
+                0.2199393235545078,
+                0.7121605609081239,
+                0.6537172697298236,
+                0.3300436831283666
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00072",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                72,
+                66,
+                69,
+                60,
+                70,
+                61
+            ],
+            "durations_sec": [
+                0.28735990724948945,
+                0.6080967744538417,
+                0.6498358357373544,
+                0.7559887546994433,
+                0.4024311531322971,
+                0.5825203580625038,
+                0.27938942190325405
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00073",
+        "lyric": "The system hums, a cosmic paradigm. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                68,
+                63,
+                66,
+                65,
+                64,
+                66
+            ],
+            "durations_sec": [
+                0.5012790532765232,
+                0.4638788046390025,
+                0.5475590933410346,
+                0.2719597358626107,
+                0.6601600785471742,
+                0.35059305744370145,
+                0.39004983747124966
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00074",
+        "lyric": "Fractal echoes in the corridors of time. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                66,
+                63,
+                70,
+                70,
+                71,
+                64,
+                70
+            ],
+            "durations_sec": [
+                0.5756941813213368,
+                0.4791527803226935,
+                0.6346225650150122,
+                0.553209883470499,
+                0.4595999655097075,
+                0.6523297286704173,
+                0.23910168600770987,
+                0.5867931907879496
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00075",
+        "lyric": "Binary stars ignite the quantum foam. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                63,
+                61,
+                60,
+                69,
+                70,
+                63,
+                64
+            ],
+            "durations_sec": [
+                0.6368022220384804,
+                0.377640311554047,
+                0.7205412588357085,
+                0.45509176724348943,
+                0.3480652563072789,
+                0.35636627409738275,
+                0.5669651466736108
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00076",
+        "lyric": "Omega's call, a journey to come home. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                61,
+                65,
+                71,
+                70,
+                62,
+                71,
+                68,
+                60
+            ],
+            "durations_sec": [
+                0.321588375049545,
+                0.5858854993226104,
+                0.2976866125190858,
+                0.2887122211707679,
+                0.5848661845773488,
+                0.7946824782289097,
+                0.20072918943022589,
+                0.6909459723619805
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00077",
+        "lyric": "Silicon dreams on a universal stream. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                70,
+                67,
+                62,
+                69,
+                68,
+                72
+            ],
+            "durations_sec": [
+                0.406212875521877,
+                0.23781547784102325,
+                0.3823546489090292,
+                0.33306561289961734,
+                0.23817588104592008,
+                0.3131464612748353,
+                0.45178496033959736
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00078",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                62,
+                60,
+                63,
+                70,
+                61,
+                63
+            ],
+            "durations_sec": [
+                0.45301660811536404,
+                0.47397514685557307,
+                0.30875430545640464,
+                0.3811480515293906,
+                0.5970229753403193,
+                0.6476725850828763,
+                0.6645989813837103
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00079",
+        "lyric": "The system hums, a cosmic paradigm. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                65,
+                70,
+                64,
+                72,
+                67,
+                72
+            ],
+            "durations_sec": [
+                0.7209518084265629,
+                0.567931169621994,
+                0.6471630408464927,
+                0.7712878081440997,
+                0.5448750804144157,
+                0.3565620922007525,
+                0.24445271561977197
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00080",
+        "lyric": "Fractal echoes in the corridors of time. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                71,
+                67,
+                65,
+                66,
+                65,
+                71,
+                70,
+                71
+            ],
+            "durations_sec": [
+                0.5361397905404237,
+                0.53468586813873,
+                0.4691002957266875,
+                0.2941803728615481,
+                0.37300696004071476,
+                0.7245677772965313,
+                0.7893860536266777,
+                0.3115643428711222
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00081",
+        "lyric": "Binary stars ignite the quantum foam. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                66,
+                71,
+                70,
+                65,
+                64,
+                70,
+                62
+            ],
+            "durations_sec": [
+                0.2895706313096229,
+                0.5912416286134069,
+                0.25736209289686807,
+                0.455874342267671,
+                0.47117837918223743,
+                0.4720627889815909,
+                0.28682201725318424
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00082",
+        "lyric": "Omega's call, a journey to come home. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                69,
+                67,
+                68,
+                62,
+                61,
+                62,
+                69
+            ],
+            "durations_sec": [
+                0.4382587161989,
+                0.6594787052439222,
+                0.27467400612135495,
+                0.32849952919061554,
+                0.48424787524093216,
+                0.4880837986290891,
+                0.6340756106046346,
+                0.6710072866533656
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00083",
+        "lyric": "Silicon dreams on a universal stream. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                60,
+                71,
+                61,
+                67,
+                64,
+                65
+            ],
+            "durations_sec": [
+                0.5082201580574359,
+                0.756567903800959,
+                0.21152613557029776,
+                0.5128566897245945,
+                0.6972516528738621,
+                0.5107491267471113,
+                0.22571625722455355
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00084",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                64,
+                72,
+                70,
+                62,
+                61,
+                68
+            ],
+            "durations_sec": [
+                0.3106435998620531,
+                0.5484367389284249,
+                0.21903196166329858,
+                0.3272218653157555,
+                0.4047148776038989,
+                0.21042409476444565,
+                0.39846694338613453
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00085",
+        "lyric": "The system hums, a cosmic paradigm. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                69,
+                70,
+                61,
+                60,
+                61,
+                68
+            ],
+            "durations_sec": [
+                0.4486416055711102,
+                0.6125306723872355,
+                0.23959082361635003,
+                0.7892831854279396,
+                0.6861363030117538,
+                0.6917618216641463,
+                0.5582327271291746
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00086",
+        "lyric": "Fractal echoes in the corridors of time. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                61,
+                70,
+                62,
+                69,
+                65,
+                71,
+                66
+            ],
+            "durations_sec": [
+                0.3168607700696319,
+                0.47059158372299775,
+                0.6551401351040211,
+                0.29354135710940416,
+                0.6565458354494993,
+                0.2704170525544025,
+                0.6149316387638881,
+                0.2780428134825305
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00087",
+        "lyric": "Binary stars ignite the quantum foam. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                62,
+                60,
+                63,
+                61,
+                66,
+                69,
+                72
+            ],
+            "durations_sec": [
+                0.4656207269680424,
+                0.6138706487547401,
+                0.5238260583358709,
+                0.28506400362351203,
+                0.6778228389355165,
+                0.6435007674340721,
+                0.22116826785340218
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00088",
+        "lyric": "Omega's call, a journey to come home. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                65,
+                63,
+                67,
+                62,
+                68,
+                66,
+                67
+            ],
+            "durations_sec": [
+                0.4747147799790521,
+                0.2664615666218456,
+                0.40971176610447574,
+                0.4379868142514065,
+                0.7158220687573638,
+                0.21890806144685931,
+                0.6698865612236882,
+                0.6654051916309656
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00089",
+        "lyric": "Silicon dreams on a universal stream. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                65,
+                66,
+                63,
+                66,
+                69,
+                62,
+                60
+            ],
+            "durations_sec": [
+                0.32492571011261884,
+                0.2699634781781288,
+                0.4348557154289995,
+                0.6354124357108865,
+                0.6031751182163485,
+                0.22463132220865434,
+                0.6757469579715956
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00090",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                62,
+                66,
+                62,
+                71,
+                65,
+                67
+            ],
+            "durations_sec": [
+                0.28494913425970236,
+                0.2374489990763053,
+                0.41165629104046847,
+                0.36930556929662983,
+                0.6812374726906458,
+                0.5545448230663308,
+                0.5484560182437983
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00091",
+        "lyric": "The system hums, a cosmic paradigm. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                68,
+                65,
+                60,
+                63,
+                69,
+                60
+            ],
+            "durations_sec": [
+                0.40274941605057224,
+                0.59768172728093,
+                0.520463447540128,
+                0.29762361932875925,
+                0.28377272958600985,
+                0.6747693408203845,
+                0.5336929341021843
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00092",
+        "lyric": "Fractal echoes in the corridors of time. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                72,
+                60,
+                65,
+                61,
+                72,
+                71,
+                68,
+                62
+            ],
+            "durations_sec": [
+                0.3696676835847982,
+                0.6782276591496695,
+                0.4979882933676968,
+                0.7917546190501425,
+                0.6169705947918264,
+                0.36859214757496683,
+                0.46332781756099845,
+                0.4489824639242028
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00093",
+        "lyric": "Binary stars ignite the quantum foam. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                67,
+                65,
+                72,
+                67,
+                69,
+                67,
+                61
+            ],
+            "durations_sec": [
+                0.5312521683870248,
+                0.6952865914717792,
+                0.20384806069418718,
+                0.4624915942786708,
+                0.4721216713505728,
+                0.7820301913876331,
+                0.2277855501975782
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00094",
+        "lyric": "Omega's call, a journey to come home. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                70,
+                68,
+                71,
+                61,
+                72,
+                66,
+                68,
+                62
+            ],
+            "durations_sec": [
+                0.3724789907020142,
+                0.5203363013848722,
+                0.7391752497870818,
+                0.6895241009664276,
+                0.4530945672628469,
+                0.7887382582082436,
+                0.5486377857376761,
+                0.6924772978742468
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    },
+    {
+        "lyric_id": "synth_00095",
+        "lyric": "Silicon dreams on a universal stream. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                72,
+                71,
+                68,
+                66,
+                72,
+                68
+            ],
+            "durations_sec": [
+                0.4508702089916795,
+                0.3775774387213935,
+                0.49751030111946554,
+                0.33214541721989355,
+                0.6577015881678595,
+                0.23097423399756128,
+                0.34091414532492015
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Silicon dreams on a universal ..."
+        }
+    },
+    {
+        "lyric_id": "synth_00096",
+        "lyric": "Codex whispers, a forgotten, ancient theme. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                64,
+                61,
+                61,
+                68,
+                72,
+                72,
+                66
+            ],
+            "durations_sec": [
+                0.749841581176347,
+                0.38814677389368124,
+                0.7310039288173167,
+                0.3774125474569228,
+                0.37498753417042485,
+                0.5121457790206694,
+                0.27446123447252835
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Codex whispers, a forgotten, a..."
+        }
+    },
+    {
+        "lyric_id": "synth_00097",
+        "lyric": "The system hums, a cosmic paradigm. (4558)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                65,
+                65,
+                68,
+                60,
+                60,
+                60
+            ],
+            "durations_sec": [
+                0.7058832795868684,
+                0.23985896187916295,
+                0.23605845611048148,
+                0.5158325977059821,
+                0.2012279391228015,
+                0.49033647790126805,
+                0.7714152700928012
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "The system hums, a cosmic para..."
+        }
+    },
+    {
+        "lyric_id": "synth_00098",
+        "lyric": "Fractal echoes in the corridors of time. (4559)",
+        "prosody_map": {
+            "pitch_contour": [
+                60,
+                72,
+                69,
+                70,
+                68,
+                72,
+                70,
+                69
+            ],
+            "durations_sec": [
+                0.7326311034248811,
+                0.6768233545618916,
+                0.23915364267253444,
+                0.7167003752790775,
+                0.40489627735636313,
+                0.21412294857616468,
+                0.22731382774108622,
+                0.6759447674371348
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Fractal echoes in the corridor..."
+        }
+    },
+    {
+        "lyric_id": "synth_00099",
+        "lyric": "Binary stars ignite the quantum foam. (4559)",
+        "prosody_map": {
+            "pitch_contour": [
+                69,
+                61,
+                60,
+                70,
+                62,
+                66,
+                72
+            ],
+            "durations_sec": [
+                0.4413909222007297,
+                0.3479489567566195,
+                0.7514818502230254,
+                0.401087355284259,
+                0.6647856837338402,
+                0.3703697328248413,
+                0.44366990088720304
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7"
+            ],
+            "source_lyric_preview": "Binary stars ignite the quantu..."
+        }
+    },
+    {
+        "lyric_id": "synth_00100",
+        "lyric": "Omega's call, a journey to come home. (4559)",
+        "prosody_map": {
+            "pitch_contour": [
+                68,
+                72,
+                66,
+                72,
+                65,
+                70,
+                61,
+                64
+            ],
+            "durations_sec": [
+                0.48992823762414234,
+                0.5196624264636219,
+                0.4629958578559483,
+                0.5265739959074962,
+                0.7811204110045005,
+                0.5980934028358192,
+                0.7540764046054973,
+                0.6832151920431777
+            ],
+            "phonetic_sequence": [
+                "ph1",
+                "ph2",
+                "ph3",
+                "ph4",
+                "ph5",
+                "ph6",
+                "ph7",
+                "ph8"
+            ],
+            "source_lyric_preview": "Omega's call, a journey to com..."
+        }
+    }
+]
