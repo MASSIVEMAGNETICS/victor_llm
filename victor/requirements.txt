@@ -1,0 +1,4 @@
+pyyaml
+feedparser
+sentence-transformers
+chromadb

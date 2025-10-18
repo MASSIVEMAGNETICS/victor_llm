@@ -1,0 +1,17 @@
+modes:
+  guardian:
+    auto_actions: ["draft-brief", "open-task"]
+    require_approval: ["send-email", "post-public"]
+  concierge:
+    auto_actions: ["summarize", "todo"]
+    require_approval: ["calendar-invite"]
+  builder:
+    auto_actions: ["draft-post", "snippet-ideas"]
+    require_approval: ["publish", "spend-money"]
+
+thresholds:
+  escalate_if:
+    policy_risk_score: 0.7
+    security_signal: true
+  auto_if:
+    opportunity_score: 0.8
