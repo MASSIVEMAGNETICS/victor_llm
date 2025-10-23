@@ -1,0 +1,22 @@
+sources:
+  - name: arxiv_ai
+    type: rss
+    url: https://export.arxiv.org/rss/cs.AI
+    cadence: 30m
+  - name: mit_tech
+    type: rss
+    url: https://www.technologyreview.com/feed/
+    cadence: 30m
+  - name: hackernews
+    type: rss
+    url: https://hnrss.org/frontpage
+    cadence: 30m
+
+parsing:
+  max_items_per_pull: 10
+  dedupe_window_days: 7
+
+routing:
+  # simple rule: anything with AI/policy/security keywords → Guardian; else Builder/Concierge
+  guardian_keywords: [policy, law, regulation, compliance, copyright, takedown, security, cve]
+  builder_keywords: [release, open-source, benchmark, dataset, tutorial, api, model, repo]
