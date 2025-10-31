@@ -1,0 +1,82 @@
+name: Auto Label
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issues:
+    types: [opened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    
+    steps:
+    - uses: actions/labeler@v5
+      if: github.event_name == 'pull_request'
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        configuration-path: .github/labeler.yml
+    
+    - name: Auto label by content
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issue = context.payload.issue || context.payload.pull_request;
+          const title = issue.title.toLowerCase();
+          const body = (issue.body || '').toLowerCase();
+          const labels = [];
+          
+          // Detect labels based on keywords
+          if (title.includes('bug') || title.includes('fix') || body.includes('bug')) {
+            labels.push('bug');
+          }
+          
+          if (title.includes('feature') || title.includes('feat') || body.includes('feature')) {
+            labels.push('enhancement');
+          }
+          
+          if (title.includes('doc') || title.includes('documentation')) {
+            labels.push('documentation');
+          }
+          
+          if (title.includes('test')) {
+            labels.push('testing');
+          }
+          
+          if (title.includes('performance') || title.includes('perf')) {
+            labels.push('performance');
+          }
+          
+          if (title.includes('security')) {
+            labels.push('security');
+          }
+          
+          if (title.includes('refactor') || body.includes('refactor')) {
+            labels.push('refactoring');
+          }
+          
+          if (title.includes('help') || title.includes('question')) {
+            labels.push('question');
+          }
+          
+          // Priority detection
+          if (title.includes('urgent') || title.includes('critical') || body.includes('urgent')) {
+            labels.push('priority: high');
+          }
+          
+          // Add labels if any were detected
+          if (labels.length > 0) {
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: labels
+            });
+            
+            core.info(`Added labels: ${labels.join(', ')}`);
+          } else {
+            core.info('No labels detected from content');
+          }
