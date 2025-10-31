@@ -49,15 +49,15 @@ class PrimeLoyaltySector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to events that might require loyalty assessment or affirmation
-        await self.pulse_exchange.subscribe("directive.pre_execution", self.handle_pre_execution_assessment)
-        await self.pulse_exchange.subscribe("system.critical_decision_request", self.handle_critical_decision_request)
-        await self.pulse_exchange.subscribe("event.loyalty_affirmation_requested", self.handle_loyalty_affirmation_request)
+        self.pulse_exchange.subscribe("directive.pre_execution", self.handle_pre_execution_assessment)
+        self.pulse_exchange.subscribe("system.critical_decision_request", self.handle_critical_decision_request)
+        self.pulse_exchange.subscribe("event.loyalty_affirmation_requested", self.handle_loyalty_affirmation_request)
         self.logger.info("PrimeLoyaltySector activated and subscribed to relevant events.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("directive.pre_execution", self.handle_pre_execution_assessment)
-        await self.pulse_exchange.unsubscribe("system.critical_decision_request", self.handle_critical_decision_request)
-        await self.pulse_exchange.unsubscribe("event.loyalty_affirmation_requested", self.handle_loyalty_affirmation_request)
+        self.pulse_exchange.unsubscribe("directive.pre_execution", self.handle_pre_execution_assessment)
+        self.pulse_exchange.unsubscribe("system.critical_decision_request", self.handle_critical_decision_request)
+        self.pulse_exchange.unsubscribe("event.loyalty_affirmation_requested", self.handle_loyalty_affirmation_request)
         await super().deactivate()
         self.logger.info("PrimeLoyaltySector deactivated.")
 
@@ -212,10 +212,10 @@ async def main_loyalty_sector_example():
     async def loyalty_event_subscriber(message, sender_id):
         example_logger.info(f"LOYALTY EVENT Sub GOT: {message.get('topic_actual')} - {message} from {sender_id}")
 
-    await pulse_exchange.subscribe("alert.loyalty_conflict", loyalty_alert_subscriber)
-    await pulse_exchange.subscribe("event.loyalty_affirmed.*", loyalty_event_subscriber)
-    await pulse_exchange.subscribe("event.loyalty_assessment_passed", loyalty_event_subscriber)
-    await pulse_exchange.subscribe("system.critical_decision_response.*", loyalty_event_subscriber)
+    pulse_exchange.subscribe("alert.loyalty_conflict", loyalty_alert_subscriber)
+    pulse_exchange.subscribe("event.loyalty_affirmed.*", loyalty_event_subscriber)
+    pulse_exchange.subscribe("event.loyalty_assessment_passed", loyalty_event_subscriber)
+    pulse_exchange.subscribe("system.critical_decision_response.*", loyalty_event_subscriber)
 
 
     asi_core = MockASICoreForLoyalty()

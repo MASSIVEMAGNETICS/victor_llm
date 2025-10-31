@@ -129,16 +129,16 @@ class ModularPluginSector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to requests for plugin operations
-        await self.pulse_exchange.subscribe("plugin.list_request", self.handle_list_plugins_request)
-        await self.pulse_exchange.subscribe("plugin.run_function_request", self.handle_run_plugin_function_request)
+        self.pulse_exchange.subscribe("plugin.list_request", self.handle_list_plugins_request)
+        self.pulse_exchange.subscribe("plugin.run_function_request", self.handle_run_plugin_function_request)
         # Example: direct command to this sector
-        await self.pulse_exchange.subscribe(f"sector.{self.name}.command", self.handle_sector_command)
+        self.pulse_exchange.subscribe(f"sector.{self.name}.command", self.handle_sector_command)
         self.logger.info("ModularPluginSector activated and subscribed to plugin operation topics.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("plugin.list_request", self.handle_list_plugins_request)
-        await self.pulse_exchange.unsubscribe("plugin.run_function_request", self.handle_run_plugin_function_request)
-        await self.pulse_exchange.unsubscribe(f"sector.{self.name}.command", self.handle_sector_command)
+        self.pulse_exchange.unsubscribe("plugin.list_request", self.handle_list_plugins_request)
+        self.pulse_exchange.unsubscribe("plugin.run_function_request", self.handle_run_plugin_function_request)
+        self.pulse_exchange.unsubscribe(f"sector.{self.name}.command", self.handle_sector_command)
         # Potentially call a shutdown on all plugins if they have such a method
         for plugin_name, plugin_module in self.mpc.plugins.items():
             if hasattr(plugin_module, 'shutdown_plugin'):
@@ -359,9 +359,9 @@ async def main_plugin_sector_example():
     async def plugin_response_subscriber(message, sender_id):
         example_logger.info(f"PLUGIN RESPONSE Sub GOT ({message.get('status')}): {message} from {sender_id}")
 
-    await pulse_exchange.subscribe("plugin.list_response.*", plugin_response_subscriber)
-    await pulse_exchange.subscribe("plugin.run_function_response.*", plugin_response_subscriber)
-    await pulse_exchange.subscribe(f"sector.ModularPluginSector.command_response.*", plugin_response_subscriber)
+    pulse_exchange.subscribe("plugin.list_response.*", plugin_response_subscriber)
+    pulse_exchange.subscribe("plugin.run_function_response.*", plugin_response_subscriber)
+    pulse_exchange.subscribe(f"sector.ModularPluginSector.command_response.*", plugin_response_subscriber)
 
 
     asi_core = MockASICoreForPlugins()

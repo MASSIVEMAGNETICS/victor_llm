@@ -27,10 +27,10 @@ class MemorySector(VictorSector):
 
         await super().activate()
         # Subscribe to commands or requests for memory operations
-        await self.pulse_exchange.subscribe(f"sector.{self.name}.command", self.handle_memory_command)
+        self.pulse_exchange.subscribe(f"sector.{self.name}.command", self.handle_memory_command)
         # Example: direct subscription to storage requests from other systems
-        await self.pulse_exchange.subscribe("memory.store_request", self.handle_store_request_event)
-        await self.pulse_exchange.subscribe("memory.search_request", self.handle_search_request_event)
+        self.pulse_exchange.subscribe("memory.store_request", self.handle_store_request_event)
+        self.pulse_exchange.subscribe("memory.search_request", self.handle_search_request_event)
         self.logger.info("MemorySector activated and subscribed to memory operation topics.")
 
     async def deactivate(self):
@@ -38,9 +38,9 @@ class MemorySector(VictorSector):
             await super().deactivate() # Basic deactivation
             return
 
-        await self.pulse_exchange.unsubscribe(f"sector.{self.name}.command", self.handle_memory_command)
-        await self.pulse_exchange.unsubscribe("memory.store_request", self.handle_store_request_event)
-        await self.pulse_exchange.unsubscribe("memory.search_request", self.handle_search_request_event)
+        self.pulse_exchange.unsubscribe(f"sector.{self.name}.command", self.handle_memory_command)
+        self.pulse_exchange.unsubscribe("memory.store_request", self.handle_store_request_event)
+        self.pulse_exchange.unsubscribe("memory.search_request", self.handle_search_request_event)
         await super().deactivate()
         self.logger.info("MemorySector deactivated.")
 
@@ -237,9 +237,9 @@ async def main_memory_sector_example():
              example_logger.info(f"Memory Op Success Sub GOT: {message} from {sender_id}")
 
 
-    await pulse_exchange.subscribe("memory.operation_success.*", memory_op_subscriber)
-    await pulse_exchange.subscribe("memory.operation_error.*", memory_op_subscriber)
-    await pulse_exchange.subscribe("memory.search_results.*", memory_op_subscriber)
+    pulse_exchange.subscribe("memory.operation_success.*", memory_op_subscriber)
+    pulse_exchange.subscribe("memory.operation_error.*", memory_op_subscriber)
+    pulse_exchange.subscribe("memory.search_results.*", memory_op_subscriber)
 
 
     asi_core = MockASICoreForMemory()

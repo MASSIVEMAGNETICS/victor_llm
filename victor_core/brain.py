@@ -29,7 +29,7 @@ class ASICoreDataContainer:
             storage_path=f"{self.config.PLUGIN_DIR.replace('plugins','bando_persistent')}/main_memory_bank.json", # Example path construction
             config=self.config
         )
-        self.memory.logger.component = f"{logger_parent_component}_HyperFractalMemory" # Standardize logger component name
+        # Note: HyperFractalMemory uses a module-level logger
 
         self.pulse_exchange = pulse_exchange_instance # Shared pulse exchange
 
@@ -37,14 +37,14 @@ class ASICoreDataContainer:
             pulse_exchange=self.pulse_exchange,
             config=self.config
         )
-        self.nlp_tokenizer.logger.component = f"{logger_parent_component}_NLPTokenizer"
+        # Note: FractalTokenKernel uses a module-level logger
 
         # Example: separate tokenizer for code, could be the same class or specialized
         self.code_tokenizer = FractalTokenKernel_v1_1_0(
             pulse_exchange=self.pulse_exchange,
             config=self.config
         )
-        self.code_tokenizer.logger.component = f"{logger_parent_component}_CodeTokenizer"
+        # Note: code_tokenizer also uses a module-level logger
 
         # Train tokenizers with some basic data if they are empty (example)
         if not self.nlp_tokenizer.vocabulary:
@@ -63,7 +63,7 @@ class VictorBrain:
         self.logger = VictorLoggerStub(component=f"VictorBrain_{self.brain_instance_id[:8]}")
 
         self.pulse_exchange = BrainFractalPulseExchange()
-        self.pulse_exchange.logger.component = "VictorBrain_PulseExchange" # Standardize logger name
+        # Note: BrainFractalPulseExchange uses a module-level logger, not an instance attribute
 
         # Initialize the ASI Core Data Container which holds shared components
         # The logger component name for ASICoreDataContainer and its sub-components will reflect this brain instance

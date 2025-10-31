@@ -5,3 +5,6 @@ pydub
 opencv-python
 scipy
 faiss-cpu
+fastapi
+uvicorn[standard]
+python-multipart

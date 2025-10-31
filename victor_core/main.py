@@ -3,6 +3,8 @@ import hashlib # For any potential hashing if needed by main logic (e.g. instanc
 import time
 import os
 import signal # For graceful shutdown handling
+import json
+import sys
 
 from victor_core.brain import VictorBrain
 from victor_core.logger import VictorLoggerStub
@@ -88,7 +90,6 @@ async def run_victor_prime_core():
 
     # Create a dummy plugin if the plugin directory is empty, to ensure ModularPluginSector works.
     try:
-        import json # Import json here as it's used by the dummy plugin creator
         _create_dummy_plugin_if_not_exists()
     except Exception as e:
         logger.error(f"Failed to create dummy plugin (non-critical): {e}", exc_info=True)
@@ -160,42 +161,48 @@ async def shutdown_handler(sig, loop):
     # loop.stop() # This might be called implicitly by asyncio.run finishing
 
 def main():
-    # Setup logging level from environment variable if needed
-    log_level_env = os.environ.get("VICTOR_LOG_LEVEL", "INFO").upper()
-    logger.log_level_str = log_level_env
-    logger.current_log_level_int = logger.log_levels_map.get(log_level_env, 2)
-    logger.info(f"Victor Prime Core application starting with log level: {log_level_env}")
-
-    loop = asyncio.get_event_loop()
-
-    # Add signal handlers for graceful shutdown
-    if os.name == 'nt': # Windows does not support SIGINT/SIGTERM well for asyncio
-        # logger.warn("Windows environment detected. SIGINT/SIGTERM handling might be limited. Use Ctrl+C carefully.")
-        # For Windows, Ctrl+C raises KeyboardInterrupt directly in the main thread,
-        # which should be caught by the try/except in run_victor_prime_core.
-        # signal.signal(signal.SIGINT, lambda s, f: asyncio.create_task(shutdown_handler(s, loop))) # May not work well
-        pass
-    else: # POSIX
-        for sig in (signal.SIGINT, signal.SIGTERM):
-            loop.add_signal_handler(sig, lambda s=sig: asyncio.create_task(shutdown_handler(s, loop)))
-            # Using functools.partial or a wrapper if lambda captures s incorrectly:
-            # handler = functools.partial(lambda s: asyncio.create_task(shutdown_handler(s, loop)), sig)
-            # loop.add_signal_handler(sig, handler)
-
-
+    """Main entry point with comprehensive error handling."""
     try:
-        asyncio.run(run_victor_prime_core())
-    except KeyboardInterrupt: # Fallback for systems where signal handler might not be perfect
-        logger.info("Main function caught KeyboardInterrupt. Ensuring shutdown...")
-        if victor_brain_instance and victor_brain_instance._is_running : # If brain is still marked as running
-             loop.run_until_complete(victor_brain_instance.stop())
+        # Setup logging level from environment variable if needed
+        log_level_env = os.environ.get("VICTOR_LOG_LEVEL", "INFO").upper()
+        logger.log_level_str = log_level_env
+        logger.current_log_level_int = logger.log_levels_map.get(log_level_env, 2)
+        logger.info(f"Victor Prime Core application starting with log level: {log_level_env}")
+
+        loop = asyncio.get_event_loop()
+
+        # Add signal handlers for graceful shutdown
+        if os.name == 'nt': # Windows does not support SIGINT/SIGTERM well for asyncio
+            # For Windows, Ctrl+C raises KeyboardInterrupt directly in the main thread,
+            # which should be caught by the try/except in run_victor_prime_core.
+            pass
+        else: # POSIX
+            for sig in (signal.SIGINT, signal.SIGTERM):
+                loop.add_signal_handler(sig, lambda s=sig: asyncio.create_task(shutdown_handler(s, loop)))
+
+        try:
+            asyncio.run(run_victor_prime_core())
+        except KeyboardInterrupt: # Fallback for systems where signal handler might not be perfect
+            logger.info("Main function caught KeyboardInterrupt. Ensuring shutdown...")
+            if victor_brain_instance and victor_brain_instance._is_running : # If brain is still marked as running
+                 loop.run_until_complete(victor_brain_instance.stop())
+        except Exception as e:
+            logger.critical(f"Unhandled exception in main execution: {e}", exc_info=True)
+            return 1
+    except ImportError as e:
+        print(f"FATAL ERROR: Missing required dependency: {e}", file=sys.stderr)
+        print("\nPlease run the setup script or install dependencies:", file=sys.stderr)
+        print("  pip install -r requirements.txt", file=sys.stderr)
+        return 2
     except Exception as e:
-        logger.critical(f"Unhandled exception in main: {e}", exc_info=True)
+        print(f"FATAL ERROR during initialization: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
+        return 3
     finally:
         logger.info("Application exiting.")
-        # loop.close() # asyncio.run() handles loop closing.
+    
+    return 0
 
 if __name__ == "__main__":
-    # Need to import sys for main_example in brain.py to use sys.version
-    import sys
-    main()
+    sys.exit(main())

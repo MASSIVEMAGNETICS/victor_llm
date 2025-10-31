@@ -1,3 +1,32 @@
 # Python bytecode
 __pycache__/
 *.py[cod]
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Generated data files
+victor_bando_persistent/
+victor_plugins/dummy_plugin/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

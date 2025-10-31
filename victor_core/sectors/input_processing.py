@@ -25,13 +25,13 @@ class InputProcessingSector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to raw input topics
-        await self.pulse_exchange.subscribe("input.raw_text", self.handle_raw_text_input)
-        await self.pulse_exchange.subscribe("input.raw_code", self.handle_raw_code_input)
+        self.pulse_exchange.subscribe("input.raw_text", self.handle_raw_text_input)
+        self.pulse_exchange.subscribe("input.raw_code", self.handle_raw_code_input)
         self.logger.info("InputProcessingSector activated and subscribed to raw input topics.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("input.raw_text", self.handle_raw_text_input)
-        await self.pulse_exchange.unsubscribe("input.raw_code", self.handle_raw_code_input)
+        self.pulse_exchange.unsubscribe("input.raw_text", self.handle_raw_text_input)
+        self.pulse_exchange.unsubscribe("input.raw_code", self.handle_raw_code_input)
         await super().deactivate()
         self.logger.info("InputProcessingSector deactivated and unsubscribed from raw input topics.")
 
@@ -185,7 +185,7 @@ async def main_input_sector_example():
         example_logger.info(f"Processed Text Subscriber GOT: {message.get('original_text')} from {sender_id}")
         example_logger.debug(f"Full processed data: {message}")
 
-    await pulse_exchange.subscribe("input.processed_text", processed_text_subscriber)
+    pulse_exchange.subscribe("input.processed_text", processed_text_subscriber)
 
     asi_core = MockASICoreForInput(pulse_exchange)
     input_sector = InputProcessingSector(pulse_exchange, "InputProcessor", asi_core)
