@@ -25,15 +25,53 @@ The `victor_modules` directory houses more extensive, specialized components tha
 
 ## Installation
 
+### Quick Start (Recommended)
+
+**One-click setup for all platforms:**
+
+```bash
+# Linux/Mac
+chmod +x setup.sh && ./setup.sh
+
+# Windows
+setup.bat
+```
+
+The setup script automatically:
+- Checks Python version (requires 3.8+)
+- Creates a virtual environment
+- Installs all dependencies
+- Sets up project directories
+
+### Manual Installation
+
+If you prefer manual setup:
+
 1.  Ensure you have Python 3.8 or newer installed.
 2.  Clone this repository to your local machine.
-3.  Navigate to the repository's root directory and install the required dependencies:
+3.  Navigate to the repository's root directory:
+    ```bash
+    cd victor_llm
+    ```
+4.  Create and activate a virtual environment (recommended):
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate.bat
+    ```
+5.  Install the required dependencies:
     ```bash
     pip install -r requirements.txt
     ```
-    This will install `numpy`, `scipy`, `openai`, `pyttsx3`, `pydub`, and `opencv-python`, among any other core requirements.
+6.  (Optional) Install in development mode:
+    ```bash
+    pip install -e .
+    ```
 
 ## Usage
+
+### Quick Start Guide
+
+For a comprehensive quick start guide, see [QUICKSTART.md](QUICKSTART.md)
 
 ### Running the Victor Prime Synthesis Core
 
@@ -56,6 +94,67 @@ For a simpler, direct demonstration of an LLM-based agent, the `VICTOR_AGI_LLM.p
     python VICTOR_AGI_LLM.py
     ```
     You can enable text-to-speech output by adding the `--voice` argument if you have the `pyttsx3` package installed and configured.
+
+### GUI Interface (`VICTOR_AGI_LLM.py`)
+
+For an interactive graphical interface to the AGI system:
+
+1.  (Optional) Set your `OPENAI_API_KEY` environment variable for LLM features.
+2.  Run the GUI:
+    ```bash
+    python VICTOR_AGI_LLM.py
+    ```
+3.  The GUI provides:
+    - Interactive chat interface
+    - Module and variable management
+    - Timeline and state controls
+    - Code execution environment
+    - System diagnostics
+
+### Dataset Trainer GUI
+
+For training and model fine-tuning:
+
+```bash
+python bando_dataset_trainer_gui_v1.0.0-BANDO-GODCORE.py
+```
+
+## Configuration
+
+### Environment Variables
+
+- `OPENAI_API_KEY`: Your OpenAI API key (required for LLM features)
+- `VICTOR_LOG_LEVEL`: Logging verbosity (DEBUG, INFO, WARN, ERROR, CRITICAL)
+
+Example:
+```bash
+export OPENAI_API_KEY='your-key-here'
+export VICTOR_LOG_LEVEL='INFO'
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Import Errors**:
+- Ensure virtual environment is activated
+- Reinstall dependencies: `pip install -r requirements.txt`
+
+**tkinter Not Found**:
+- Ubuntu/Debian: `sudo apt-get install python3-tk`
+- Mac: Use Python from python.org (includes tkinter)
+- Windows: Reinstall Python with tkinter option checked
+
+**Plugin Loading Errors**:
+- Check plugin manifest.json format
+- Ensure plugin directory structure is correct
+- Review logs with `VICTOR_LOG_LEVEL=DEBUG`
+
+**Memory or Performance Issues**:
+- Reduce `MAX_CONTEXT_WINDOW` in `victor_core/config.py`
+- Clear persistent data: `rm -rf victor_bando_persistent/`
+
+For more detailed troubleshooting, see [QUICKSTART.md](QUICKSTART.md)
 
 ## Development
 
