@@ -3,6 +3,8 @@ import hashlib # For any potential hashing if needed by main logic (e.g. instanc
 import time
 import os
 import signal # For graceful shutdown handling
+import json
+import sys
 
 from victor_core.brain import VictorBrain
 from victor_core.logger import VictorLoggerStub
@@ -88,7 +90,6 @@ async def run_victor_prime_core():
 
     # Create a dummy plugin if the plugin directory is empty, to ensure ModularPluginSector works.
     try:
-        import json # Import json here as it's used by the dummy plugin creator
         _create_dummy_plugin_if_not_exists()
     except Exception as e:
         logger.error(f"Failed to create dummy plugin (non-critical): {e}", exc_info=True)
@@ -196,6 +197,4 @@ def main():
         # loop.close() # asyncio.run() handles loop closing.
 
 if __name__ == "__main__":
-    # Need to import sys for main_example in brain.py to use sys.version
-    import sys
     main()

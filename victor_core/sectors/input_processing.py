@@ -25,13 +25,13 @@ class InputProcessingSector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to raw input topics
-        await self.pulse_exchange.subscribe("input.raw_text", self.handle_raw_text_input)
-        await self.pulse_exchange.subscribe("input.raw_code", self.handle_raw_code_input)
+        self.pulse_exchange.subscribe("input.raw_text", self.handle_raw_text_input)
+        self.pulse_exchange.subscribe("input.raw_code", self.handle_raw_code_input)
         self.logger.info("InputProcessingSector activated and subscribed to raw input topics.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("input.raw_text", self.handle_raw_text_input)
-        await self.pulse_exchange.unsubscribe("input.raw_code", self.handle_raw_code_input)
+        self.pulse_exchange.unsubscribe("input.raw_text", self.handle_raw_text_input)
+        self.pulse_exchange.unsubscribe("input.raw_code", self.handle_raw_code_input)
         await super().deactivate()
         self.logger.info("InputProcessingSector deactivated and unsubscribed from raw input topics.")
 

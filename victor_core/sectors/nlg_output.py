@@ -23,11 +23,11 @@ class NLGOutputSector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to requests for text generation
-        await self.pulse_exchange.subscribe("nlg.generate_text_request", self.handle_generate_text_request)
+        self.pulse_exchange.subscribe("nlg.generate_text_request", self.handle_generate_text_request)
         self.logger.info("NLGOutputSector activated and subscribed to NLG requests.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("nlg.generate_text_request", self.handle_generate_text_request)
+        self.pulse_exchange.unsubscribe("nlg.generate_text_request", self.handle_generate_text_request)
         await super().deactivate()
         self.logger.info("NLGOutputSector deactivated.")
 
@@ -129,9 +129,9 @@ async def main_nlg_sector_example():
     async def nlg_response_subscriber(message, sender_id):
         example_logger.debug(f"NLG Response Sub GOT: {message} from {sender_id}")
 
-    await pulse_exchange.subscribe("output.*", output_subscriber) # General output consumer
-    await pulse_exchange.subscribe("nlg.generated_text_response.*", nlg_response_subscriber) # Specific NLG success
-    await pulse_exchange.subscribe("nlg.generation_failed.*", nlg_response_subscriber) # Specific NLG failure
+    pulse_exchange.subscribe("output.*", output_subscriber) # General output consumer
+    pulse_exchange.subscribe("nlg.generated_text_response.*", nlg_response_subscriber) # Specific NLG success
+    pulse_exchange.subscribe("nlg.generation_failed.*", nlg_response_subscriber) # Specific NLG failure
 
 
     asi_core = MockASICoreForNLG() # Not really used by this simple NLG

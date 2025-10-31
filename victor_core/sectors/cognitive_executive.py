@@ -127,14 +127,14 @@ class CognitiveExecutiveSector(VictorSector):
     async def activate(self):
         await super().activate()
         # Subscribe to processed inputs that need decision making
-        await self.pulse_exchange.subscribe("input.processed_text", self.handle_processed_input)
-        await self.pulse_exchange.subscribe("input.processed_code", self.handle_processed_input) # Can handle both
+        self.pulse_exchange.subscribe("input.processed_text", self.handle_processed_input)
+        self.pulse_exchange.subscribe("input.processed_code", self.handle_processed_input) # Can handle both
         await self.focus_loop.start()
         self.logger.info("CognitiveExecutiveSector activated and subscribed to processed inputs.")
 
     async def deactivate(self):
-        await self.pulse_exchange.unsubscribe("input.processed_text", self.handle_processed_input)
-        await self.pulse_exchange.unsubscribe("input.processed_code", self.handle_processed_input)
+        self.pulse_exchange.unsubscribe("input.processed_text", self.handle_processed_input)
+        self.pulse_exchange.unsubscribe("input.processed_code", self.handle_processed_input)
         await self.focus_loop.stop()
         await super().deactivate()
         self.logger.info("CognitiveExecutiveSector deactivated.")
@@ -261,7 +261,7 @@ async def main_cognitive_sector_example():
     async def directive_executed_subscriber(message, sender_id):
         example_logger.info(f"Directive Executed Subscriber GOT: {message.get('directive', {}).get('action')} from {sender_id}")
 
-    await pulse_exchange.subscribe("directive.executed.*", directive_executed_subscriber) # Wildcard for all actions
+    pulse_exchange.subscribe("directive.executed.*", directive_executed_subscriber) # Wildcard for all actions
 
     asi_core = MockASICoreForCognitive(pulse_exchange)
     # Clean up test memory file from previous runs if any

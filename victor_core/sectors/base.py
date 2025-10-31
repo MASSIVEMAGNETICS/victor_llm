@@ -23,8 +23,8 @@ class VictorSector:
             self.status = "active"
             self.logger.info(f"Sector {self.name} activated.")
             # Example: Subscribe to relevant pulse topics
-            # await self.pulse_exchange.subscribe(f"{self.name}.control", self._handle_control_signal)
-            # await self.pulse_exchange.subscribe(f"system.shutdown", self._handle_system_shutdown)
+            # self.pulse_exchange.subscribe(f"{self.name}.control", self._handle_control_signal)
+            # self.pulse_exchange.subscribe(f"system.shutdown", self._handle_system_shutdown)
         else:
             self.logger.info(f"Sector {self.name} is already active.")
 
@@ -35,8 +35,8 @@ class VictorSector:
             self.status = "deactivated"
             self.logger.info(f"Sector {self.name} deactivating...")
             # Example: Unsubscribe from pulse topics
-            # await self.pulse_exchange.unsubscribe(f"{self.name}.control", self._handle_control_signal)
-            # await self.pulse_exchange.unsubscribe(f"system.shutdown", self._handle_system_shutdown)
+            # self.pulse_exchange.unsubscribe(f"{self.name}.control", self._handle_control_signal)
+            # self.pulse_exchange.unsubscribe(f"system.shutdown", self._handle_system_shutdown)
 
             # Terminate any active threads/tasks
             for task in self.active_threads:
