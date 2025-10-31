@@ -4,19 +4,38 @@ Version: v1.0.0-GODCORE-MONOLITH-FINAL (Conceptual)
 This file implements the InfiniteDevUI for Victor AGI.
 """
 
+import sys
 import argparse
 import os
-import openai
-import numpy as np
 import json
 import time
-import traceback # Added for exception formatting
+import traceback
 
+# Check for numpy first
+try:
+    import numpy as np
+except ImportError:
+    print("ERROR: numpy is required. Please run: pip install -r requirements.txt")
+    sys.exit(1)
+
+# Check for openai
+try:
+    import openai
+except ImportError:
+    print("WARNING: openai package not found. LLM features will be limited.")
+    print("To enable full functionality: pip install openai")
+    openai = None
+
+# Check for tkinter
 try:
     import tkinter as tk
     from tkinter import ttk, messagebox, simpledialog, filedialog, scrolledtext
 except ImportError:
     print("FATAL ERROR: Tkinter is required for the VICTOR_AGI Command Center GUI.")
+    print("\nInstallation instructions:")
+    print("  Ubuntu/Debian: sudo apt-get install python3-tk")
+    print("  Mac: Included with Python from python.org")
+    print("  Windows: Included with standard Python installation")
     sys.exit(1)
 
 try:
@@ -661,27 +680,51 @@ sys.excepthook = global_exception_hook
 agi_instance_global_ref = None # Will hold the AGI instance
 
 def main_gui():
+    """Main GUI entry point with comprehensive error handling."""
     global agi_instance_global_ref
-    if "OPENAI_API_KEY" not in os.environ:
-        # Use tkinter to show this error if GUI is the primary interface
-        root = tk.Tk()
-        root.withdraw() # Hide the main window
-        messagebox.showerror("OpenAI Key Error", "Please set the OPENAI_API_KEY environment variable before running.")
-        root.destroy()
-        return
+    
+    try:
+        # Check for OpenAI API key
+        if openai and "OPENAI_API_KEY" not in os.environ:
+            root = tk.Tk()
+            root.withdraw()
+            result = messagebox.askyesno(
+                "OpenAI Key Not Found",
+                "OpenAI API key is not set. Some features will be limited.\n\n"
+                "Do you want to continue anyway?\n\n"
+                "To set it later, use:\nexport OPENAI_API_KEY='your-key'"
+            )
+            root.destroy()
+            if not result:
+                print("Exiting: OpenAI API key required for full functionality.")
+                return 1
+        elif openai and "OPENAI_API_KEY" in os.environ:
+            openai.api_key = os.environ["OPENAI_API_KEY"]
 
-    openai.api_key = os.environ["OPENAI_API_KEY"]
+        print("Initializing VictorASIOmniBrainGodcore...")
+        agi_core = VictorASIOmniBrainGodcore(voice=False)
+        agi_instance_global_ref = agi_core
 
-    print("Initializing VictorASIOmniBrainGodcore...")
-    agi_core = VictorASIOmniBrainGodcore(voice=False) # Voice typically not used in dev UI
-    agi_instance_global_ref = agi_core # Set global ref for exception hook
-
-    print("Initializing InfiniteDevUI...")
-    app = InfiniteDevUI(agi_core)
-    app.mainloop()
-    print("InfiniteDevUI closed.")
+        print("Initializing InfiniteDevUI...")
+        app = InfiniteDevUI(agi_core)
+        app.mainloop()
+        print("InfiniteDevUI closed successfully.")
+        return 0
+        
+    except Exception as e:
+        error_msg = f"Fatal error in main_gui: {e}\n{traceback.format_exc()}"
+        print(error_msg, file=sys.stderr)
+        try:
+            root = tk.Tk()
+            root.withdraw()
+            messagebox.showerror(
+                "Fatal Error",
+                f"An error occurred:\n\n{str(e)}\n\nCheck console for details."
+            )
+            root.destroy()
+        except:
+            pass
+        return 1
 
 if __name__ == "__main__":
-    # This allows running either CLI or GUI. For this subtask, GUI is primary.
-    # For simplicity, directly call main_gui(). Add CLI arg parsing if needed later.
-    main_gui()
+    sys.exit(main_gui())
