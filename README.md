@@ -63,4 +63,64 @@ For a simpler, direct demonstration of an LLM-based agent, the `VICTOR_AGI_LLM.p
 -   New functionalities and tools can be added by creating plugins in the `victor_plugins` directory (the specific path is configured in `victor_core/config.py` via `ASIConfigCore.PLUGIN_DIR`).
 -   Larger, more specialized modules or standalone conceptual systems can be developed within the `victor_modules` directory.
 -   The system uses an asynchronous architecture; familiarity with Python's `asyncio` library is beneficial for development.
+
+## Contributing
+
+We welcome contributions to the Victor AGI Framework! Please follow these guidelines:
+
+1. **Read the Contributing Guide**: Check out [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions
+2. **Code of Conduct**: Please review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+3. **Fork and Branch**: Create a feature branch from `main`
+4. **Follow Standards**: Adhere to PEP 8 style guidelines and existing code patterns
+5. **Write Tests**: Add tests for new features or bug fixes
+6. **Submit PR**: Use the PR template and fill it out completely
+
+### Quick Start for Contributors
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/victor_llm.git
+cd victor_llm
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install development tools
+pip install pytest pytest-cov flake8 black isort
+
+# Make your changes, then test
+python -m pytest test_bando_copilot.py -v
+
+# Format your code
+black .
+isort .
+flake8 .
+
+# Commit and push
+git add .
+git commit -m "feat: Your descriptive commit message"
+git push origin your-feature-branch
+```
+
+For more details, see our [Contributing Guide](CONTRIBUTING.md).
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- **CI Workflow**: Runs tests, linting, and security checks on all PRs and pushes
+- **Release Workflow**: Automatically creates releases when version tags are pushed
+- **PR Checklist**: Validates PR descriptions and adds size labels
+- **Auto-labeling**: Automatically labels issues and PRs based on content
+- **Dependency Review**: Checks for security vulnerabilities in dependencies
+- **Stale Bot**: Automatically closes inactive issues and PRs
+
+## License
+
+This project is proprietary - Massive Magnetics / Ethica AI / BHeard Network.
+
 ```

@@ -1,0 +1,73 @@
+name: Validate Workflows
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate workflow files
+      run: |
+        echo "Checking workflow YAML syntax..."
+        
+        # Find all workflow files
+        WORKFLOW_FILES=$(find .github/workflows -name "*.yml" -o -name "*.yaml")
+        
+        # Check each file
+        for file in $WORKFLOW_FILES; do
+          echo "Validating $file..."
+          
+          # Basic YAML syntax check using Python
+          python3 -c "
+        import yaml
+        import sys
+        
+        try:
+            with open('$file', 'r') as f:
+                yaml.safe_load(f)
+            print('✓ $file is valid YAML')
+        except yaml.YAMLError as e:
+            print('✗ $file has YAML errors:', e)
+            sys.exit(1)
+          " || exit 1
+        done
+        
+        echo "All workflow files are valid!"
+    
+    - name: Check for common issues
+      run: |
+        echo "Checking for common workflow issues..."
+        
+        # Check for missing required fields
+        for file in .github/workflows/*.yml .github/workflows/*.yaml; do
+          if [ -f "$file" ]; then
+            # Check for 'name' field
+            if ! grep -q "^name:" "$file"; then
+              echo "Warning: $file is missing 'name' field"
+            fi
+            
+            # Check for 'on' field
+            if ! grep -q "^on:" "$file"; then
+              echo "Error: $file is missing 'on' trigger field"
+              exit 1
+            fi
+            
+            # Check for 'jobs' field
+            if ! grep -q "^jobs:" "$file"; then
+              echo "Error: $file is missing 'jobs' field"
+              exit 1
+            fi
+          fi
+        done
+        
+        echo "Basic validation checks passed!"
