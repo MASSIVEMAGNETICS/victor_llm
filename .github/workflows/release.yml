@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        pip install pytest pytest-cov
+        python -m pytest test_bando_copilot.py -v
+    
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        # Get the tag name
+        TAG=${GITHUB_REF#refs/tags/}
+        echo "tag=$TAG" >> $GITHUB_OUTPUT
+        
+        # Get the previous tag
+        PREV_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1) 2>/dev/null || echo "")
+        
+        # Generate changelog
+        if [ -z "$PREV_TAG" ]; then
+          echo "## Changes" > release_notes.md
+          git log --pretty=format:"- %s (%h)" >> release_notes.md
+        else
+          echo "## Changes since $PREV_TAG" > release_notes.md
+          git log $PREV_TAG..HEAD --pretty=format:"- %s (%h)" >> release_notes.md
+        fi
+        
+        echo "" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "## Installation" >> release_notes.md
+        echo "" >> release_notes.md
+        echo '```bash' >> release_notes.md
+        echo "git clone https://github.com/MASSIVEMAGNETICS/victor_llm.git" >> release_notes.md
+        echo "cd victor_llm" >> release_notes.md
+        echo "git checkout $TAG" >> release_notes.md
+        echo "pip install -r requirements.txt" >> release_notes.md
+        echo '```' >> release_notes.md
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

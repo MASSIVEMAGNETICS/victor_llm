@@ -1,0 +1,64 @@
+# Configuration for auto-labeling based on file paths
+
+# Victor Core components
+'core':
+  - 'victor_core/**/*'
+
+# Modules
+'modules':
+  - 'victor_modules/**/*'
+
+# Sectors
+'sectors':
+  - 'victor_core/sectors/**/*'
+
+# Memory system
+'memory':
+  - 'victor_core/memory/**/*'
+
+# NLP/Tokenization
+'nlp':
+  - 'victor_core/nlp/**/*'
+
+# Operations/Tensors
+'ops':
+  - 'victor_core/ops/**/*'
+
+# Messaging system
+'messaging':
+  - 'victor_core/messaging/**/*'
+
+# Documentation
+'documentation':
+  - '*.md'
+  - 'docs/**/*'
+
+# Tests
+'testing':
+  - 'test_*.py'
+  - '**/tests/**/*'
+
+# Configuration
+'configuration':
+  - '*.yml'
+  - '*.yaml'
+  - '*.json'
+  - '*.toml'
+  - 'requirements.txt'
+  - '.github/**/*'
+
+# Dependencies
+'dependencies':
+  - 'requirements.txt'
+  - 'setup.py'
+  - 'pyproject.toml'
+
+# CI/CD
+'ci/cd':
+  - '.github/workflows/**/*'
+
+# Scripts
+'scripts':
+  - '*.py'
+  - '*.sh'
+  - '*.bash'
