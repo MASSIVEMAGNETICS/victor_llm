@@ -185,7 +185,7 @@ async def main_input_sector_example():
         example_logger.info(f"Processed Text Subscriber GOT: {message.get('original_text')} from {sender_id}")
         example_logger.debug(f"Full processed data: {message}")
 
-    await pulse_exchange.subscribe("input.processed_text", processed_text_subscriber)
+    pulse_exchange.subscribe("input.processed_text", processed_text_subscriber)
 
     asi_core = MockASICoreForInput(pulse_exchange)
     input_sector = InputProcessingSector(pulse_exchange, "InputProcessor", asi_core)
