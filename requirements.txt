@@ -5,3 +5,4 @@ pydub
 opencv-python
 scipy
 faiss-cpu
+torch
