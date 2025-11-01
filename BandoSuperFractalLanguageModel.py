@@ -289,24 +289,33 @@ class ASTMutationVisitor(ast.NodeVisitor):
     def __init__(self, mutation_rate: float):
         self.mutation_rate = mutation_rate
         self.modified = False
-    def visit_Num(self, node):
+    
+    def visit_Constant(self, node):
+        """Visit constant nodes (replaces deprecated visit_Num for Python 3.8+)"""
         if random.random() < self.mutation_rate:
-            if isinstance(node.n, (int, float)):
-                node.n += random.gauss(0, 0.5)
+            if isinstance(node.value, (int, float)):
+                node.value += random.gauss(0, 0.5)
                 self.modified = True
         return self.generic_visit(node)
+    
     def visit_Name(self, node):
         if random.random() < self.mutation_rate:
-            if node.id not in ['self', 'env', 'ga', 'nn', 'ca', 'pso', 'ql', 'SimEnv', 'GeneticOptimizer', 'NeuralLearner', 'CellularAutomata', 'ParticleSwarm', 'QLearner', 'ASTMutationVisitor']:
+            # Protected names that should not be mutated
+            protected = {'self', 'env', 'ga', 'nn', 'ca', 'pso', 'ql', 'SimEnv', 
+                        'GeneticOptimizer', 'NeuralLearner', 'CellularAutomata', 
+                        'ParticleSwarm', 'QLearner', 'ASTMutationVisitor'}
+            if node.id not in protected:
                 node.id = hashlib.md5(node.id.encode()).hexdigest()[:6]
                 self.modified = True
         return self.generic_visit(node)
+    
     def visit_BinOp(self, node):
         if random.random() < self.mutation_rate:
             ops = [ast.Add(), ast.Sub(), ast.Mult(), ast.Div()]
             node.op = random.choice(ops)
             self.modified = True
         return self.generic_visit(node)
+    
     def generic_visit(self, node):
         if random.random() < self.mutation_rate * 0.5:
             if isinstance(node, ast.FunctionDef):
@@ -553,16 +562,16 @@ class ASTMutationVisitor(ast.NodeVisitor):
     def __init__(self, mutation_rate: float):
         self.mutation_rate = mutation_rate
         self.modified = False
-    def visit_Num(self, node):
+    def visit_Constant(self, node):
         if random.random() < self.mutation_rate:
-            if isinstance(node.n, (int, float)):
-                node.n += random.gauss(0, 0.5)
+            if isinstance(node.value, (int, float)):
+                node.value += random.gauss(0, 0.5)
                 self.modified = True
         return self.generic_visit(node)
     def visit_Name(self, node):
         if random.random() < self.mutation_rate:
             if node.id not in ['self', 'env', 'ga', 'nn', 'ca', 'pso', 'ql', 'SimEnv', 'GeneticOptimizer', 'NeuralLearner', 'CellularAutomata', 'ParticleSwarm', 'QLearner', 'ASTMutationVisitor']:
-                node.id = hash(node.id) % 10000
+                node.id = hashlib.md5(node.id.encode()).hexdigest()[:6]
                 self.modified = True
         return self.generic_visit(node)
     def visit_BinOp(self, node):
