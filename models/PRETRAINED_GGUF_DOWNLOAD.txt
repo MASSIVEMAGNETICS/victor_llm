@@ -71,7 +71,7 @@ Once downloaded, you can load the GGUF model in your code:
 
 Python example:
 ```python
-from victor_core.models import load_gguf_model
+from models import load_gguf_model
 
 model = load_gguf_model('models/victor_pretrained.gguf')
 response = model.generate("Hello, Victor!")

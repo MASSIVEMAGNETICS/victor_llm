@@ -38,7 +38,7 @@ def example_with_bando_trainer():
     # Example code snippet that could be used
     print(f"\n{'='*70}")
     print("Example initialization code:")
-    print("='*70")
+    print("=" * 70)
     print("""
 # In your training script:
 from models import load_blank_slate

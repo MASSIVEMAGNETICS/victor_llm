@@ -14,10 +14,10 @@ The **blank slate model** (`blank_slate.json`) is a minimal, untrained model con
 
 **Usage:**
 ```python
-from victor_core.models import load_model
+from models import load_blank_slate
 
 # Load the blank slate model
-model = load_model('models/blank_slate.json')
+model = load_blank_slate('models/blank_slate.json')
 ```
 
 ### Pretrained GGUF Model
@@ -47,7 +47,7 @@ Due to the large size of GGUF model files (typically several GB), they are not s
 
 **Usage:**
 ```python
-from victor_core.models import load_gguf_model
+from models import load_gguf_model
 
 # Load the pretrained GGUF model
 model = load_gguf_model('models/victor_pretrained.gguf')
