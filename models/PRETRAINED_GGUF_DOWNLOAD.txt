@@ -1,0 +1,98 @@
+Victor Pretrained GGUF Model - Download Instructions
+=====================================================
+
+This file provides instructions for obtaining the pretrained GGUF model for Victor LLM.
+
+IMPORTANT: Due to their large size (typically 2-10+ GB), GGUF model files are NOT included
+in the repository. You must download or create them separately.
+
+Recommended Models:
+-------------------
+
+1. Small Model (3-4GB RAM required):
+   - Phi-2 GGUF (2.7B parameters)
+   - Download: https://huggingface.co/TheBloke/phi-2-GGUF
+   - Recommended quantization: Q4_K_M
+   
+   Example command:
+   wget https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/phi-2.Q4_K_M.gguf -O models/victor_pretrained.gguf
+
+2. Medium Model (8GB RAM required):
+   - Mistral-7B GGUF (7B parameters)
+   - Download: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF
+   - Recommended quantization: Q4_K_M or Q5_K_M
+   
+   Example command:
+   wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf -O models/victor_pretrained.gguf
+
+3. Large Model (16GB+ RAM required):
+   - Llama-2-13B GGUF (13B parameters)
+   - Download: https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF
+   - Recommended quantization: Q4_K_M
+   
+   Example command:
+   wget https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q4_K_M.gguf -O models/victor_pretrained.gguf
+
+Using Your Own Model:
+---------------------
+
+If you have trained your own model, you can convert it to GGUF format using llama.cpp tools:
+
+1. Install llama.cpp:
+   git clone https://github.com/ggerganov/llama.cpp
+   cd llama.cpp
+   make
+
+2. Convert your model:
+   python convert.py /path/to/your/model --outtype f16 --outfile victor_pretrained.gguf
+
+3. Optionally quantize (for smaller file size and faster inference):
+   ./quantize victor_pretrained.gguf victor_pretrained.Q4_K_M.gguf Q4_K_M
+
+4. Move to models directory:
+   mv victor_pretrained.Q4_K_M.gguf /path/to/victor_llm/models/victor_pretrained.gguf
+
+File Naming:
+-----------
+
+You can name your GGUF files however you like, but we recommend:
+- victor_pretrained.gguf (for the default/primary model)
+- victor_[model_name]_[size]_[quant].gguf (for specific models)
+
+Examples:
+- victor_mistral_7b_q4.gguf
+- victor_phi2_2.7b_q4.gguf
+- victor_llama2_13b_q5.gguf
+
+Integration with Victor:
+-----------------------
+
+Once downloaded, you can load the GGUF model in your code:
+
+Python example:
+```python
+from victor_core.models import load_gguf_model
+
+model = load_gguf_model('models/victor_pretrained.gguf')
+response = model.generate("Hello, Victor!")
+print(response)
+```
+
+Note: GGUF support requires the `llama-cpp-python` library:
+pip install llama-cpp-python
+
+For GPU acceleration (if you have a compatible NVIDIA GPU):
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python --force-reinstall --upgrade --no-cache-dir
+
+For Apple Silicon (M1/M2/M3) Metal acceleration:
+CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python --force-reinstall --upgrade --no-cache-dir
+
+Support:
+--------
+
+For issues or questions about model setup, please refer to:
+- Victor documentation: docs/
+- llama.cpp documentation: https://github.com/ggerganov/llama.cpp
+- Hugging Face model hub: https://huggingface.co/models?library=gguf
+
+Last Updated: 2025-11-02

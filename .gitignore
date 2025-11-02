@@ -7,3 +7,23 @@ sanctum/
 seed.py
 victor_growth.log
 *.log
+
+# Model files (large binary files)
+*.gguf
+*.ggml
+*.bin
+*.pt
+*.pth
+*.safetensors
+models/*.gguf
+models/*.ggml
+models/*.bin
+models/*.pt
+models/*.pth
+models/*.safetensors
+
+# Keep model configuration and documentation
+!models/README.md
+!models/blank_slate.json
+!models/*.txt
+!models/*.md
