@@ -23,6 +23,16 @@ The `victor_modules` directory houses more extensive, specialized components tha
 -   **`fractal_agi/victorch_filthy_fractal_agi_persist.py`**: A conceptual, self-contained AGI persistence mechanism employing fractal logic and simulated quantum annealing for state management (Note: this is a thematic module and not directly integrated into `VictorBrain`'s main persistence which is handled by `HyperFractalMemory` and component-specific serialization).
 -   **`plugin_loader.py`**: A legacy plugin loader. This component is **deprecated** in favor of the new `ModularPluginSector` and `ModularPluginCortex`.
 
+## Models (`models`)
+
+The `models` directory contains model configurations and pretrained model files for Victor:
+
+-   **`blank_slate.json`**: A minimal, untrained model configuration that serves as a starting point for training or fine-tuning. Contains architecture configuration, training hyperparameters, and system settings.
+-   **Pretrained GGUF Models**: Victor supports GGUF (GPT-Generated Unified Format) quantized models for efficient inference. Due to their large size, pretrained models must be downloaded separately. See `models/PRETRAINED_GGUF_DOWNLOAD.txt` for instructions.
+-   **Model Utilities**: The `models` module provides Python utilities for loading and managing models. See `models/example_usage.py` for examples.
+
+For detailed information about models, see `models/README.md`.
+
 ## Installation
 
 1.  Ensure you have Python 3.8 or newer installed.
@@ -32,6 +42,11 @@ The `victor_modules` directory houses more extensive, specialized components tha
     pip install -r requirements.txt
     ```
     This will install `numpy`, `scipy`, `openai`, `pyttsx3`, `pydub`, and `opencv-python`, among any other core requirements.
+4.  (Optional) To use pretrained GGUF models, install llama-cpp-python:
+    ```bash
+    pip install llama-cpp-python
+    ```
+    See `models/PRETRAINED_GGUF_DOWNLOAD.txt` for instructions on obtaining pretrained models.
 
 ## Usage
 
