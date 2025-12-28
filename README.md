@@ -72,6 +72,14 @@ For a simpler, direct demonstration of an LLM-based agent, the `VICTOR_AGI_LLM.p
     ```
     You can enable text-to-speech output by adding the `--voice` argument if you have the `pyttsx3` package installed and configured.
 
+### Train the Tokenizer Vocabulary
+
+To build a vocabulary from your own text corpus, run the tokenizer trainer. Provide either a single text file or a directory of `.txt` files:
+
+```bash
+python -m victor_core.train_tokenizer --input path/to/corpus --output models/tokenizer_vocab.json
+```
+
 ## Development
 
 -   The core AGI framework logic resides primarily within the `victor_core` package.
