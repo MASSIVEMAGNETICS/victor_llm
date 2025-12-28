@@ -1,7 +1,9 @@
 import re
 import math
+import json
 import hashlib
 import asyncio # For pulse publishing
+from pathlib import Path
 
 from victor_core.logger import VictorLoggerStub
 # Assuming BrainFractalPulseExchange will be passed during instantiation
@@ -42,6 +44,26 @@ class FractalTokenKernel_v1_1_0:
         logger.info(f"Training complete. Vocabulary size: {len(self.vocabulary)}")
         if self.pulse:
             asyncio.create_task(self.pulse.publish("tokenizer_train_complete", {"vocab_size": len(self.vocabulary)}))
+
+    def save_vocabulary(self, path: str | Path) -> None:
+        vocab_path = Path(path)
+        vocab_path.parent.mkdir(parents=True, exist_ok=True)
+        data = {
+            "vocabulary": self.vocabulary,
+            "token_counts": self.token_counts,
+            "next_token_id": self.next_token_id,
+        }
+        vocab_path.write_text(json.dumps(data, indent=2, sort_keys=True), encoding="utf-8")
+        logger.info(f"Saved vocabulary to {vocab_path}")
+
+    def load_vocabulary(self, path: str | Path) -> None:
+        vocab_path = Path(path)
+        data = json.loads(vocab_path.read_text(encoding="utf-8"))
+        self.vocabulary = {word: int(token_id) for word, token_id in data.get("vocabulary", {}).items()}
+        self.reverse_vocabulary = {token_id: word for word, token_id in self.vocabulary.items()}
+        self.token_counts = {word: int(count) for word, count in data.get("token_counts", {}).items()}
+        self.next_token_id = int(data.get("next_token_id", len(self.vocabulary)))
+        logger.info(f"Loaded vocabulary from {vocab_path}. Size: {len(self.vocabulary)}")
 
 
     def tokenize(self, text: str) -> list[int]:
