@@ -1,6 +1,7 @@
 import asyncio
 import time # For main loop timing, integrity checks etc.
 import uuid # For generating instance IDs if needed
+from pathlib import Path
 
 from victor_core.messaging.pulse_exchange import BrainFractalPulseExchange
 from victor_core.logger import VictorLoggerStub
@@ -46,10 +47,19 @@ class ASICoreDataContainer:
         )
         self.code_tokenizer.logger.component = f"{logger_parent_component}_CodeTokenizer"
 
+        tokenizer_dir = Path(self.config.TOKENIZER_DIR)
+        tokenizer_dir.mkdir(parents=True, exist_ok=True)
+
+        nlp_tokenizer_path = tokenizer_dir / "nlp_tokenizer.json"
+        code_tokenizer_path = tokenizer_dir / "code_tokenizer.json"
+
+        loaded_nlp = self.nlp_tokenizer.load_from_file(str(nlp_tokenizer_path))
+        loaded_code = self.code_tokenizer.load_from_file(str(code_tokenizer_path))
+
         # Train tokenizers with some basic data if they are empty (example)
-        if not self.nlp_tokenizer.vocabulary:
+        if not loaded_nlp and not self.nlp_tokenizer.vocabulary:
             self.nlp_tokenizer.train(["hello world example", "victor agi system online"])
-        if not self.code_tokenizer.vocabulary:
+        if not loaded_code and not self.code_tokenizer.vocabulary:
             self.code_tokenizer.train(["def func(): pass", "import sys", "print('code example')"])
 
         # Reference to the main asyncio loop if needed by components (usually not directly)

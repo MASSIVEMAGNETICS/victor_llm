@@ -1,5 +1,6 @@
 import re
 import math
+import json
 import hashlib
 import asyncio # For pulse publishing
 
@@ -42,6 +43,36 @@ class FractalTokenKernel_v1_1_0:
         logger.info(f"Training complete. Vocabulary size: {len(self.vocabulary)}")
         if self.pulse:
             asyncio.create_task(self.pulse.publish("tokenizer_train_complete", {"vocab_size": len(self.vocabulary)}))
+
+    def to_dict(self) -> dict:
+        return {
+            "vocabulary": self.vocabulary,
+            "reverse_vocabulary": self.reverse_vocabulary,
+            "token_counts": self.token_counts,
+            "next_token_id": self.next_token_id,
+        }
+
+    def save(self, output_path: str) -> None:
+        data = self.to_dict()
+        with open(output_path, "w", encoding="utf-8") as output_file:
+            json.dump(data, output_file, indent=2, sort_keys=True)
+        logger.info(f"Tokenizer saved to {output_path}.")
+
+    def load_from_file(self, input_path: str) -> bool:
+        try:
+            with open(input_path, "r", encoding="utf-8") as input_file:
+                data = json.load(input_file)
+        except FileNotFoundError:
+            return False
+
+        self.vocabulary = data.get("vocabulary", {})
+        self.reverse_vocabulary = {
+            int(token_id): token for token_id, token in data.get("reverse_vocabulary", {}).items()
+        }
+        self.token_counts = data.get("token_counts", {})
+        self.next_token_id = data.get("next_token_id", len(self.vocabulary))
+        logger.info(f"Tokenizer loaded from {input_path} with vocab size {len(self.vocabulary)}.")
+        return True
 
 
     def tokenize(self, text: str) -> list[int]:
