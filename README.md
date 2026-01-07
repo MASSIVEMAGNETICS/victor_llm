@@ -58,6 +58,26 @@ For comprehensive training documentation, see [`TRAINING_GUIDE.md`](TRAINING_GUI
 
 ## Installation
 
+### One-Click Setup (Recommended)
+
+For the easiest setup experience, use our automated setup scripts that create directories, install dependencies, and create a desktop shortcut:
+
+**Windows:**
+1.  Ensure you have Python 3.8 or newer installed from [python.org](https://www.python.org/)
+2.  Clone this repository to your local machine
+3.  Double-click `setup.bat` or run it from Command Prompt
+4.  A "Victor LLM" shortcut will be created on your desktop
+5.  Double-click the desktop shortcut to run Victor!
+
+**Linux/macOS:**
+1.  Ensure you have Python 3.8 or newer installed
+2.  Clone this repository to your local machine
+3.  Open a terminal in the repository directory
+4.  Run: `bash setup.sh`
+5.  A desktop shortcut will be created (or use `./run_victor.sh` to run)
+
+### Manual Installation
+
 1.  Ensure you have Python 3.8 or newer installed.
 2.  Clone this repository to your local machine.
 3.  Navigate to the repository's root directory and install the required dependencies:
