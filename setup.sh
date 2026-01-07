@@ -48,8 +48,14 @@ echo "[4/5] Creating desktop shortcut..."
 # Detect desktop directory
 if [ -d "$HOME/Desktop" ]; then
     DESKTOP_DIR="$HOME/Desktop"
-elif [ -d "$HOME/Escritorio" ]; then
+elif [ -d "$HOME/Escritorio" ]; then  # Spanish
     DESKTOP_DIR="$HOME/Escritorio"
+elif [ -d "$HOME/Bureau" ]; then  # French
+    DESKTOP_DIR="$HOME/Bureau"
+elif [ -d "$HOME/Schreibtisch" ]; then  # German
+    DESKTOP_DIR="$HOME/Schreibtisch"
+elif [ -d "$HOME/Skrivbord" ]; then  # Swedish
+    DESKTOP_DIR="$HOME/Skrivbord"
 else
     DESKTOP_DIR="$HOME"
     echo "WARNING: Desktop directory not found, creating shortcut in home directory"
@@ -64,7 +70,7 @@ Type=Application
 Name=Victor LLM
 Comment=Run Victor LLM AI System
 Exec=bash "$SCRIPT_DIR/run_victor.sh"
-Icon=applications-science
+Icon=utilities-terminal
 Terminal=true
 Categories=Development;Science;
 Path=$SCRIPT_DIR

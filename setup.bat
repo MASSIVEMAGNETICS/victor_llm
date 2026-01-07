@@ -48,6 +48,7 @@ echo [4/5] Creating desktop shortcut...
 set SCRIPT_DIR=%~dp0
 set SHORTCUT_PATH=%USERPROFILE%\Desktop\Victor LLM.lnk
 set TARGET_PATH=%SCRIPT_DIR%run_victor.bat
+REM Icon index 13 in SHELL32.dll is typically a star/application icon (may vary by Windows version)
 set ICON_PATH=%SystemRoot%\System32\SHELL32.dll,13
 
 REM Create VBS script to create shortcut
