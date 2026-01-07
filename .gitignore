@@ -31,3 +31,10 @@ models/*.safetensors
 # Training artifacts
 checkpoints/
 sample_data.txt
+
+# Setup script generated directories
+bando_persistent/
+victor_plugins/
+
+# Desktop shortcuts
+*.desktop
