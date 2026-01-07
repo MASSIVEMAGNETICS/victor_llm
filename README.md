@@ -25,13 +25,36 @@ The `victor_modules` directory houses more extensive, specialized components tha
 
 ## Models (`models`)
 
-The `models` directory contains model configurations and pretrained model files for Victor:
+The `models` directory contains model configurations and training infrastructure for Victor:
 
 -   **`blank_slate.json`**: A minimal, untrained model configuration that serves as a starting point for training or fine-tuning. Contains architecture configuration, training hyperparameters, and system settings.
+-   **`transformer_model.py`**: Complete PyTorch implementation of a GPT-style transformer model with 125M parameters, including multi-head attention, position embeddings, and causal masking.
 -   **Pretrained GGUF Models**: Victor supports GGUF (GPT-Generated Unified Format) quantized models for efficient inference. Due to their large size, pretrained models must be downloaded separately. See `models/PRETRAINED_GGUF_DOWNLOAD.txt` for instructions.
 -   **Model Utilities**: The `models` module provides Python utilities for loading and managing models. See `models/example_usage.py` for examples.
 
 For detailed information about models, see `models/README.md`.
+
+### Training Your Own SOTA Model
+
+Victor includes a complete training pipeline for state-of-the-art transformer models:
+
+```bash
+# Install training dependencies
+pip install torch tqdm numpy
+
+# Train on sample data (auto-generated)
+python train_sota_model.py --create-sample-data --epochs 3
+
+# Train on your own dataset
+python train_sota_model.py --data your_text.txt --epochs 10 --batch-size 8
+```
+
+The training script implements:
+- **Modern Optimization**: AdamW with learning rate warmup and cosine annealing
+- **Efficient Training**: Gradient clipping, accumulation, and automatic checkpointing
+- **Progress Tracking**: Detailed logging and loss visualization
+
+For comprehensive training documentation, see [`TRAINING_GUIDE.md`](TRAINING_GUIDE.md).
 
 ## Installation
 
