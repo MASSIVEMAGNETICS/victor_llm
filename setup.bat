@@ -21,11 +21,6 @@ echo [1/5] Python found:
 python --version
 echo.
 
-REM Check Python version (basic check)
-for /f "tokens=2" %%i in ('python --version 2^>^&1') do set PYTHON_VERSION=%%i
-echo Python version: %PYTHON_VERSION%
-echo.
-
 REM Create necessary directories
 echo [2/5] Creating necessary directories...
 if not exist "victor_plugins" mkdir victor_plugins
@@ -76,18 +71,12 @@ if exist "%SHORTCUT_PATH%" (
 )
 echo.
 
-REM Create run script if it doesn't exist
+REM Verify run script exists
 if not exist "run_victor.bat" (
-    echo [5/5] Creating run script...
-    echo @echo off > run_victor.bat
-    echo REM Victor LLM Run Script >> run_victor.bat
-    echo cd /d "%%~dp0" >> run_victor.bat
-    echo echo Starting Victor LLM... >> run_victor.bat
-    echo python -m victor_core.main >> run_victor.bat
-    echo pause >> run_victor.bat
-    echo Run script created.
+    echo [5/5] WARNING: run_victor.bat not found!
+    echo Please ensure run_victor.bat is present in the repository.
 ) else (
-    echo [5/5] Run script already exists.
+    echo [5/5] Run script found: run_victor.bat
 )
 echo.
 

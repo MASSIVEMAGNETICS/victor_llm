@@ -81,31 +81,13 @@ cp "$DESKTOP_FILE" "$LOCAL_APPS_DIR/victor_llm.desktop"
 echo "Desktop shortcut created successfully!"
 echo ""
 
-# Create run script if it doesn't exist
+# Verify run script exists
 if [ ! -f "run_victor.sh" ]; then
-    echo "[5/5] Creating run script..."
-    cat > run_victor.sh << 'EOF'
-#!/bin/bash
-# Victor LLM Run Script
-
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
-
-echo "Starting Victor LLM..."
-python3 -m victor_core.main
-
-# Keep terminal open on error
-if [ $? -ne 0 ]; then
-    echo ""
-    echo "Press Enter to exit..."
-    read
-fi
-EOF
-    chmod +x run_victor.sh
-    echo "Run script created."
+    echo "[5/5] WARNING: run_victor.sh not found!"
+    echo "Please ensure run_victor.sh is present in the repository."
 else
-    echo "[5/5] Run script already exists."
+    echo "[5/5] Run script found: run_victor.sh"
+    chmod +x run_victor.sh
 fi
 echo ""
 
