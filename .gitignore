@@ -27,3 +27,7 @@ models/*.safetensors
 !models/blank_slate.json
 !models/*.txt
 !models/*.md
+
+# Training artifacts
+checkpoints/
+sample_data.txt
