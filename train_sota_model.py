@@ -21,8 +21,24 @@ import numpy as np
 from models.transformer_model import VictorTransformerModel, load_model_from_config, count_parameters
 
 
+# Constants
+MAX_CHAR_CODE = 255  # Maximum character code for simple tokenization
+
+
 class TextDataset(Dataset):
-    """Simple text dataset for language modeling"""
+    """
+    Simple text dataset for language modeling
+    
+    Creates overlapping sequences from a text file for training.
+    Uses simple character-level tokenization where each character
+    is mapped to an integer (0-255 for ASCII characters).
+    
+    Args:
+        text_file: Path to text file containing training data
+        tokenizer: Tokenizer instance for encoding text
+        max_length: Maximum sequence length in tokens
+        stride: Number of tokens to shift between sequences
+    """
     
     def __init__(self, text_file: str, tokenizer, max_length: int = 512, stride: int = 256):
         """
@@ -53,8 +69,8 @@ class TextDataset(Dataset):
     
     def _simple_tokenize(self, text: str) -> List[int]:
         """Simple character-level tokenization"""
-        # Map characters to integers (0-255 for ASCII + special tokens)
-        return [min(ord(c), 255) for c in text]
+        # Map characters to integers (0-MAX_CHAR_CODE for ASCII + special tokens)
+        return [min(ord(c), MAX_CHAR_CODE) for c in text]
     
     def __len__(self):
         return len(self.sequences)
@@ -74,10 +90,10 @@ class SimpleTokenizer:
         self.vocab_size = vocab_size
     
     def encode(self, text: str) -> List[int]:
-        return [min(ord(c), self.vocab_size - 1) for c in text]
+        return [min(ord(c), MAX_CHAR_CODE) for c in text]
     
     def decode(self, tokens: List[int]) -> str:
-        return ''.join([chr(min(t, 255)) for t in tokens])
+        return ''.join([chr(min(t, MAX_CHAR_CODE)) for t in tokens])
 
 
 class Trainer:
@@ -293,9 +309,11 @@ def create_sample_dataset(output_file: str = "sample_data.txt", num_samples: int
         "State-of-the-art models achieve impressive performance on many tasks.",
     ]
     
+    # Generate all samples at once for efficiency
+    selected_texts = np.random.choice(sample_texts, size=num_samples)
+    
     with open(output_file, 'w', encoding='utf-8') as f:
-        for _ in range(num_samples):
-            text = np.random.choice(sample_texts)
+        for text in selected_texts:
             f.write(text + "\n")
     
     print(f"Sample dataset created with {num_samples} lines")

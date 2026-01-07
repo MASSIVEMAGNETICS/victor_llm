@@ -160,7 +160,9 @@ class VictorTransformerModel(nn.Module):
         # Language model head
         self.lm_head = nn.Linear(self.hidden_size, self.vocab_size, bias=False)
         
-        # Weight tying (share weights between token embedding and output)
+        # Weight tying (share weights between token embedding and output layer)
+        # This reduces parameters and improves performance by ensuring
+        # input and output embeddings are consistent
         self.lm_head.weight = self.token_embedding.weight
         
         # Initialize weights
