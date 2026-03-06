@@ -260,6 +260,93 @@ If you use this training pipeline in your research:
 - Training script: `train_sota_model.py`
 - Victor core framework: `victor_core/`
 
+## Fine-Tuning a Pretrained Model
+
+If you already have a trained Victor checkpoint you can resume training on new
+data using a much lower learning rate.  This is called *fine-tuning* and is
+often far more efficient than training from scratch.
+
+### Quick Start
+
+```bash
+# Fine-tune from a previous checkpoint on new data
+python train_sota_model.py \
+    --pretrained checkpoints/best_checkpoint.pt \
+    --data domain_specific_data.txt \
+    --epochs 3 \
+    --learning-rate 5e-5
+```
+
+### Fine-Tuning CLI Flags
+
+| Flag | Description |
+|---|---|
+| `--pretrained PATH` | Load weights from a `.pt` checkpoint before training |
+| `--learning-rate LR` | Override learning rate (use a small value such as `5e-5` for fine-tuning) |
+| `--freeze-embedding` | Keep token and position embeddings frozen |
+| `--freeze-layers 0,1,2` | Comma-separated list of transformer block indices to freeze |
+
+### Freeze Embeddings and Early Layers
+
+Freezing lower layers is useful when your domain-specific dataset is small or
+closely related to the original training data.  Only the upper layers will be
+updated, reducing the risk of catastrophic forgetting.
+
+```bash
+python train_sota_model.py \
+    --pretrained checkpoints/best_checkpoint.pt \
+    --data mydomain.txt \
+    --epochs 5 \
+    --learning-rate 1e-5 \
+    --freeze-embedding \
+    --freeze-layers 0,1,2,3
+```
+
+### Best Practices
+
+1. **Use a much smaller learning rate** — typically 1e-5 to 5e-5 instead of 5e-4 for training from scratch.
+2. **Fewer epochs** — 2–5 epochs are usually enough for fine-tuning, compared with 10+ when starting from scratch.
+3. **Use real, domain-specific data** — fine-tuning on data that matches your target domain gives the best results.
+4. **Freeze lower layers** — embedding and early transformer blocks often benefit from being kept frozen.
+5. **Keep a validation set** — monitor val loss to detect when the model starts over-fitting.
+
+### Loading Pretrained Weights in Python
+
+```python
+import torch
+from models import load_pretrained_checkpoint
+from models.transformer_model import load_model_from_config
+
+# Reconstruct the model architecture
+model = load_model_from_config('models/blank_slate.json')
+
+# Load weights from a previous run
+checkpoint = load_pretrained_checkpoint('checkpoints/best_checkpoint.pt')
+model.load_state_dict(checkpoint['model_state_dict'])
+print(f"Resuming from epoch {checkpoint['epoch']}")
+```
+
+### Programmatic Fine-Tuning via AutoTrainer
+
+The `TrainingConfig` dataclass in `auto_trainer.py` exposes the same
+fine-tuning options for use within the DataBlob Godmode Toolkit:
+
+```python
+from auto_trainer import AutoTrainer, TrainingConfig
+
+config = TrainingConfig(
+    pretrained_model_path="checkpoints/best_checkpoint.pt",
+    learning_rate=5e-5,
+    epochs=3,
+    freeze_embedding=True,
+    freeze_layers=[0, 1, 2],
+)
+
+trainer = AutoTrainer()
+result = trainer.train(train_records, val_records, config=config)
+print(result.summary())
+```
+
 ## License
 
 Proprietary - Massive Magnetics / Ethica AI / BHeard Network

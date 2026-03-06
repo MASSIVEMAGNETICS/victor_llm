@@ -662,6 +662,189 @@ class TestTrainingConfig(unittest.TestCase):
         cfg = TrainingConfig(run_id="my-run")
         self.assertEqual(cfg.run_id, "my-run")
 
+    def test_pretrained_fields_defaults(self):
+        """TrainingConfig should expose pretrained fine-tuning fields."""
+        from auto_trainer import TrainingConfig
+        cfg = TrainingConfig()
+        self.assertIsNone(cfg.pretrained_model_path)
+        self.assertFalse(cfg.freeze_embedding)
+        self.assertEqual(cfg.freeze_layers, [])
+
+    def test_pretrained_fields_set(self):
+        """Pretrained fine-tuning fields should be settable."""
+        from auto_trainer import TrainingConfig
+        cfg = TrainingConfig(
+            pretrained_model_path="/tmp/model.pt",
+            freeze_embedding=True,
+            freeze_layers=[0, 1, 2],
+            learning_rate=5e-5,
+        )
+        self.assertEqual(cfg.pretrained_model_path, "/tmp/model.pt")
+        self.assertTrue(cfg.freeze_embedding)
+        self.assertEqual(cfg.freeze_layers, [0, 1, 2])
+        self.assertAlmostEqual(cfg.learning_rate, 5e-5)
+
+
+class TestLoadPretrainedCheckpoint(unittest.TestCase):
+    """Tests for models.load_pretrained_checkpoint."""
+
+    def test_missing_file_raises(self):
+        from models import load_pretrained_checkpoint
+        with self.assertRaises(FileNotFoundError):
+            load_pretrained_checkpoint("/nonexistent/path/model.pt")
+
+    def test_load_returns_dict_with_model_state(self):
+        """A checkpoint saved with torch.save should be loadable."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+
+        from models import load_pretrained_checkpoint
+
+        tmp_dir = tempfile.mkdtemp()
+        ckpt_path = os.path.join(tmp_dir, "test_checkpoint.pt")
+        fake_ckpt = {
+            "model_state_dict": {"layer.weight": torch.zeros(3, 3)},
+            "epoch": 5,
+            "global_step": 100,
+            "best_val_loss": 0.42,
+            "config": {"architecture": {}},
+        }
+        torch.save(fake_ckpt, ckpt_path)
+
+        loaded = load_pretrained_checkpoint(ckpt_path)
+        self.assertIn("model_state_dict", loaded)
+        self.assertEqual(loaded["epoch"], 5)
+        self.assertAlmostEqual(loaded["best_val_loss"], 0.42)
+
+        import shutil
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+class TestPretrainedWeightsAndFreezing(unittest.TestCase):
+    """Tests for load_pretrained_weights and freeze_model_layers in train_sota_model."""
+
+    def _make_model(self):
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from models.transformer_model import load_model_from_config
+        config_path = Path(__file__).parent / "models" / "blank_slate.json"
+        if not config_path.exists():
+            self.skipTest("blank_slate.json not found")
+        # Use a tiny config to keep tests fast
+        import json
+        with open(config_path) as f:
+            cfg = json.load(f)
+        cfg["architecture"]["num_layers"] = 2
+        cfg["architecture"]["hidden_size"] = 64
+        cfg["architecture"]["num_attention_heads"] = 2
+        cfg["architecture"]["intermediate_size"] = 128
+        cfg["architecture"]["max_position_embeddings"] = 32
+        cfg["architecture"]["vocab_size"] = 256
+        from models.transformer_model import VictorTransformerModel
+        return VictorTransformerModel(cfg)
+
+    def test_freeze_embedding_disables_grad(self):
+        """freeze_model_layers with freeze_embedding=True should disable gradients."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from train_sota_model import freeze_model_layers
+        model = self._make_model()
+        freeze_model_layers(model, freeze_embedding=True)
+        for param in model.token_embedding.parameters():
+            self.assertFalse(param.requires_grad)
+        for param in model.position_embedding.parameters():
+            self.assertFalse(param.requires_grad)
+        # Other parameters should still be trainable
+        self.assertTrue(any(p.requires_grad for p in model.blocks.parameters()))
+
+    def test_freeze_specific_layer(self):
+        """Freezing a specific block index should only affect that block."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from train_sota_model import freeze_model_layers
+        model = self._make_model()
+        freeze_model_layers(model, freeze_layers=[0])
+        for param in model.blocks[0].parameters():
+            self.assertFalse(param.requires_grad)
+        if len(model.blocks) > 1:
+            self.assertTrue(any(p.requires_grad for p in model.blocks[1].parameters()))
+
+    def test_freeze_out_of_range_layer_is_ignored(self):
+        """An out-of-range layer index should not crash."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from train_sota_model import freeze_model_layers
+        model = self._make_model()
+        # Should not raise
+        freeze_model_layers(model, freeze_layers=[999])
+
+    def test_load_pretrained_weights_compatible(self):
+        """load_pretrained_weights should populate model parameters from a checkpoint."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from train_sota_model import load_pretrained_weights
+
+        model = self._make_model()
+
+        # Save a checkpoint using the current model's weights as the "pretrained" source
+        import tempfile
+        tmp_dir = tempfile.mkdtemp()
+        ckpt_path = os.path.join(tmp_dir, "pretrained.pt")
+        torch.save({"model_state_dict": model.state_dict(), "epoch": 3}, ckpt_path)
+
+        # Mutate the model weights so they differ
+        with torch.no_grad():
+            for p in model.parameters():
+                p.fill_(0.0)
+
+        # Load should restore original weights
+        checkpoint = load_pretrained_weights(model, ckpt_path)
+        self.assertEqual(checkpoint["epoch"], 3)
+        # At least some weights should be non-zero after loading
+        total_norm = sum(p.abs().sum().item() for p in model.parameters())
+        self.assertGreater(total_norm, 0.0)
+
+        import shutil
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+    def test_load_pretrained_weights_partial(self):
+        """load_pretrained_weights should skip weights with mismatched shapes."""
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("PyTorch not installed")
+        from train_sota_model import load_pretrained_weights
+
+        model = self._make_model()
+
+        # Build a checkpoint with one mismatched tensor
+        state = {k: v.clone() for k, v in model.state_dict().items()}
+        first_key = next(iter(state))
+        state[first_key] = torch.zeros(99, 99)  # Intentional shape mismatch
+
+        import tempfile
+        tmp_dir = tempfile.mkdtemp()
+        ckpt_path = os.path.join(tmp_dir, "partial.pt")
+        torch.save({"model_state_dict": state, "epoch": 1}, ckpt_path)
+
+        # Should not raise; mismatched key is skipped
+        load_pretrained_weights(model, ckpt_path)
+
+        import shutil
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
 
 class TestModelSelector(unittest.TestCase):
     def setUp(self):
