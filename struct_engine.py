@@ -241,7 +241,7 @@ class Normalizer:
 
     @staticmethod
     def normalize_text(value: str) -> str:
-        """Basic text normalisation: strip, lower, collapse whitespace."""
+        """Basic text normalization: strip, lower, collapse whitespace."""
         return re.sub(r"\s+", " ", value.strip().lower())
 
     @staticmethod

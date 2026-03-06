@@ -184,11 +184,11 @@ class TrainingProgressDisplay:
 
 
 # ---------------------------------------------------------------------------
-# Dataset statistics visualiser
+# Dataset statistics visualizer
 # ---------------------------------------------------------------------------
 
-class DatasetStatsVisualiser:
-    """Visualise dataset field statistics."""
+class DatasetStatsVisualizer:
+    """Visualize dataset field statistics."""
 
     def summary(self, field_stats: List[Dict[str, Any]]) -> str:
         """Return a formatted text summary of field statistics."""
@@ -467,7 +467,7 @@ class AnalyticsDashboard:
 
     def __init__(self) -> None:
         self._heatmap = QualityHeatmap()
-        self._stats_vis = DatasetStatsVisualiser()
+        self._stats_viz = DatasetStatsVisualizer()
         self._progress = TrainingProgressDisplay()
         self._html_dash = HTMLDashboard()
         self._server: Optional[DashboardServer] = None
@@ -517,7 +517,7 @@ class AnalyticsDashboard:
         if self._null_pcts:
             print(self._heatmap.ascii_heatmap(self._null_pcts))
         if self._field_stats:
-            print("\n" + self._stats_vis.summary(self._field_stats))
+            print("\n" + self._stats_viz.summary(self._field_stats))
         if self._training_history:
             print("\nTraining History:")
             self._progress.print_metrics_table(self._training_history)

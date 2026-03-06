@@ -212,10 +212,10 @@ class Splitter:
 
 
 # ---------------------------------------------------------------------------
-# Class balance analyser
+# Class balance analyzer
 # ---------------------------------------------------------------------------
 
-class ClassBalanceAnalyser:
+class ClassBalanceAnalyzer:
     """Analyse and rebalance class distributions."""
 
     def analyse(
@@ -498,7 +498,7 @@ class DatasetCompiler:
 
     def __init__(self) -> None:
         self._splitter = Splitter()
-        self._balance_analyser = ClassBalanceAnalyser()
+        self._balance_analyzer = ClassBalanceAnalyzer()
         self._exporter = DatasetExporter()
         self._manifest_gen = ManifestGenerator()
 
@@ -579,9 +579,9 @@ class DatasetCompiler:
         # Balance adjustment
         if label_field and balance_strategy:
             if balance_strategy == "oversample":
-                records = self._balance_analyser.oversample(records, label_field)
+                records = self._balance_analyzer.oversample(records, label_field)
             elif balance_strategy == "undersample":
-                records = self._balance_analyser.undersample(records, label_field)
+                records = self._balance_analyzer.undersample(records, label_field)
             else:
                 logger.warning("Unknown balance_strategy %r, skipping.", balance_strategy)
 
@@ -594,7 +594,7 @@ class DatasetCompiler:
         # Generate manifest
         balance_info: Dict[str, Any] = {}
         if label_field:
-            balance_info = self._balance_analyser.analyse(records, label_field)
+            balance_info = self._balance_analyzer.analyse(records, label_field)
 
         manifest = self._manifest_gen.generate(
             name=name,
@@ -627,4 +627,4 @@ class DatasetCompiler:
         self, records: List[Record], label_field: str
     ) -> Dict[str, Any]:
         """Analyse class balance for *label_field*."""
-        return self._balance_analyser.analyse(records, label_field)
+        return self._balance_analyzer.analyse(records, label_field)

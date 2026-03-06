@@ -484,10 +484,10 @@ class TestSplitter(unittest.TestCase):
             self.SplitConfig(train=0.8, val=0.3, test=0.3)
 
 
-class TestClassBalanceAnalyser(unittest.TestCase):
+class TestClassBalanceAnalyzer(unittest.TestCase):
     def setUp(self):
-        from dataset_compiler import ClassBalanceAnalyser
-        self.analyser = ClassBalanceAnalyser()
+        from dataset_compiler import ClassBalanceAnalyzer
+        self.analyser = ClassBalanceAnalyzer()
 
     def test_balanced(self):
         records = [{"label": i % 2} for i in range(100)]
