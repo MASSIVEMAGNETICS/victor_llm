@@ -19,6 +19,7 @@ from tqdm import tqdm
 import numpy as np
 
 from models.transformer_model import VictorTransformerModel, load_model_from_config, count_parameters
+from models import load_pretrained_checkpoint
 
 
 # Constants
@@ -291,6 +292,80 @@ class Trainer:
         print(f"Checkpoint loaded from {path}")
 
 
+def load_pretrained_weights(model: nn.Module, checkpoint_path: str, device: str = 'cpu') -> Dict[str, Any]:
+    """
+    Load pretrained weights into a Victor Transformer model from a checkpoint.
+
+    Only weights whose keys and shapes match the current model are loaded
+    (partial loading).  This allows fine-tuning even when the checkpoint was
+    created with a slightly different configuration.
+
+    Args:
+        model: The VictorTransformerModel instance to load weights into.
+        checkpoint_path: Path to a ``.pt`` checkpoint produced by this training
+            pipeline or by ``load_pretrained_checkpoint``.
+        device: Device to map tensors to during loading.
+
+    Returns:
+        The full checkpoint dictionary (so callers can inspect metadata such as
+        epoch, config, etc.).
+
+    Raises:
+        FileNotFoundError: If *checkpoint_path* does not exist.
+    """
+    checkpoint = load_pretrained_checkpoint(checkpoint_path)
+    state_dict = checkpoint.get('model_state_dict', checkpoint)
+
+    # Filter out keys with shape mismatches for robustness
+    model_state = model.state_dict()
+    compatible = {
+        k: v for k, v in state_dict.items()
+        if k in model_state and model_state[k].shape == v.shape
+    }
+    skipped = set(state_dict.keys()) - set(compatible.keys())
+    if skipped:
+        print(f"  ⚠ Skipped {len(skipped)} incompatible weight(s): {', '.join(sorted(skipped))}")
+
+    model_state.update(compatible)
+    model.load_state_dict(model_state)
+    loaded_epoch = checkpoint.get('epoch', 0)
+    print(f"  ✓ Loaded {len(compatible)} weight tensors from epoch {loaded_epoch} checkpoint: {checkpoint_path}")
+    return checkpoint
+
+
+def freeze_model_layers(
+    model: nn.Module,
+    freeze_embedding: bool = False,
+    freeze_layers: Optional[List[int]] = None,
+) -> None:
+    """
+    Freeze selected parts of the model so they are not updated during training.
+
+    Args:
+        model: A VictorTransformerModel instance.
+        freeze_embedding: When True, freeze ``token_embedding`` and
+            ``position_embedding`` so embedding weights are not updated.
+        freeze_layers: List of transformer block indices (0-based) to freeze.
+            For example, ``[0, 1, 2]`` freezes the first three blocks.
+    """
+    if freeze_embedding:
+        for param in model.token_embedding.parameters():
+            param.requires_grad = False
+        for param in model.position_embedding.parameters():
+            param.requires_grad = False
+        print("  ✓ Frozen: token_embedding, position_embedding")
+
+    if freeze_layers:
+        for idx in freeze_layers:
+            if idx < len(model.blocks):
+                for param in model.blocks[idx].parameters():
+                    param.requires_grad = False
+                print(f"  ✓ Frozen: transformer block {idx}")
+            else:
+                print(f"  ⚠ Block index {idx} out of range (model has {len(model.blocks)} blocks)")
+
+
+
 def create_sample_dataset(output_file: str = "sample_data.txt", num_samples: int = 1000):
     """Create a sample text dataset for demonstration"""
     print(f"Creating sample dataset: {output_file}")
@@ -337,7 +412,17 @@ def main():
                         help='Device to use (cpu, cuda, or auto)')
     parser.add_argument('--create-sample-data', action='store_true',
                         help='Create sample dataset before training')
-    
+    parser.add_argument('--pretrained', type=str, default=None,
+                        help='Path to a pretrained checkpoint (.pt) to fine-tune from')
+    parser.add_argument('--freeze-embedding', action='store_true',
+                        help='Freeze token and position embeddings during fine-tuning')
+    parser.add_argument('--freeze-layers', type=str, default=None,
+                        help='Comma-separated list of transformer block indices to freeze '
+                             '(e.g. "0,1,2" freezes the first three blocks)')
+    parser.add_argument('--learning-rate', type=float, default=None,
+                        help='Override the learning rate from the config file. '
+                             'Recommended: use a smaller value (e.g. 5e-5) when fine-tuning.')
+
     args = parser.parse_args()
     
     # Determine device
@@ -361,12 +446,38 @@ def main():
     # Override batch size if specified
     if 'training_config' in config:
         config['training_config']['batch_size'] = args.batch_size
+
+    # Override learning rate if specified on the command line
+    if args.learning_rate is not None:
+        if 'training_config' not in config:
+            config['training_config'] = {}
+        config['training_config']['learning_rate'] = args.learning_rate
     
     # Load model
     print(f"\nLoading model from {args.config}...")
     model = load_model_from_config(args.config, device=device)
     print(f"Model loaded successfully! Parameters: {count_parameters(model):,}")
-    
+
+    # Fine-tuning: load pretrained weights if provided
+    if args.pretrained:
+        print(f"\nFine-tuning from pretrained checkpoint: {args.pretrained}")
+        load_pretrained_weights(model, args.pretrained, device=device)
+
+    # Freeze selected layers if requested
+    freeze_layers_list: Optional[List[int]] = None
+    if args.freeze_layers:
+        try:
+            freeze_layers_list = [int(x.strip()) for x in args.freeze_layers.split(',') if x.strip()]
+        except ValueError:
+            parser.error("--freeze-layers must be a comma-separated list of integers, e.g. '0,1,2'")
+
+    if args.freeze_embedding or freeze_layers_list:
+        print("\nFreezing selected model components:")
+        freeze_model_layers(model, freeze_embedding=args.freeze_embedding, freeze_layers=freeze_layers_list)
+        trainable = count_parameters(model)
+        total = sum(p.numel() for p in model.parameters())
+        print(f"  Trainable parameters: {trainable:,} / {total:,} ({100*trainable/total:.1f}%)")
+
     # Create tokenizer
     tokenizer = SimpleTokenizer(vocab_size=config['architecture']['vocab_size'])
     
@@ -389,7 +500,7 @@ def main():
     
     # Create warmup + cosine annealing scheduler
     optimizer = AdamW(
-        model.parameters(),
+        filter(lambda p: p.requires_grad, model.parameters()),
         lr=training_config.get('learning_rate', 5e-5),
         weight_decay=training_config.get('weight_decay', 0.01)
     )
@@ -403,7 +514,7 @@ def main():
     
     cosine_scheduler = CosineAnnealingLR(
         optimizer,
-        T_max=total_steps - warmup_steps,
+        T_max=max(1, total_steps - warmup_steps),
         eta_min=training_config.get('learning_rate', 5e-5) * 0.1
     )
     

@@ -148,10 +148,58 @@ def list_available_models() -> Dict[str, bool]:
     return models
 
 
+def load_pretrained_checkpoint(checkpoint_path: str) -> Dict[str, Any]:
+    """
+    Load a pretrained Victor checkpoint saved by ``train_sota_model.py``.
+
+    The checkpoint is a ``torch.save``-produced file containing at minimum a
+    ``model_state_dict`` key.  This helper loads the file on CPU so it can be
+    inspected or passed straight to
+    :func:`models.transformer_model.VictorTransformerModel.load_state_dict`.
+
+    Args:
+        checkpoint_path: Path to a ``.pt`` checkpoint file produced by the
+            Victor training pipeline.
+
+    Returns:
+        The raw checkpoint dictionary.  Keys typically include:
+        ``model_state_dict``, ``optimizer_state_dict``,
+        ``scheduler_state_dict``, ``epoch``, ``global_step``,
+        ``best_val_loss``, and ``config``.
+
+    Raises:
+        FileNotFoundError: If *checkpoint_path* does not exist.
+        ImportError: If PyTorch is not installed.
+
+    Example::
+
+        checkpoint = load_pretrained_checkpoint('checkpoints/best_checkpoint.pt')
+        model.load_state_dict(checkpoint['model_state_dict'])
+    """
+    path = Path(checkpoint_path)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Pretrained checkpoint not found: {path}\n"
+            "Train a model first with: python train_sota_model.py --create-sample-data"
+        )
+
+    try:
+        import torch
+    except ImportError:
+        raise ImportError(
+            "PyTorch is required to load pretrained checkpoints.\n"
+            "Install it with: pip install torch"
+        )
+
+    checkpoint = torch.load(path, map_location='cpu')
+    return checkpoint
+
+
 __all__ = [
     'load_blank_slate',
     'get_gguf_model_path',
     'load_gguf_model',
+    'load_pretrained_checkpoint',
     'list_available_models',
     'MODELS_DIR',
 ]

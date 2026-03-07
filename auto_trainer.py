@@ -51,6 +51,10 @@ class TrainingConfig:
     seed: int = 42
     output_dir: str = "./checkpoints"
     run_id: str = ""
+    # Fine-tuning / pretrained model options
+    pretrained_model_path: Optional[str] = None   # Path to a pretrained .pt checkpoint
+    freeze_embedding: bool = False                 # Freeze token & position embeddings
+    freeze_layers: List[int] = field(default_factory=list)  # Transformer block indices to freeze
     extra: Dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
