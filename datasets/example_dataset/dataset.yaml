@@ -1,0 +1,6 @@
+name: example_dataset
+task: classification
+label_field: label
+text_field: text
+version: "1.0"
+description: "Tiny example dataset shipped with Victor LLM for smoke tests and demos."
