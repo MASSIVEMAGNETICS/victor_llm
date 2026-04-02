@@ -47,7 +47,7 @@ def _setup_logging(verbose: bool = False) -> None:
 # ---------------------------------------------------------------------------
 
 def _repo_root() -> Path:
-    return Path(__file__).parent.resolve()
+    return Path(__file__).parent.parent.resolve()
 
 
 def _default_artifacts_dir() -> Path:

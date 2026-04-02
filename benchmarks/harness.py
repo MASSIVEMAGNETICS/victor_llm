@@ -43,9 +43,13 @@ if str(REPO_ROOT) not in sys.path:
 def _get_memory_mb() -> float:
     """Return current RSS memory in MB (cross-platform, best-effort)."""
     try:
+        import sys
         import resource  # Unix only
 
-        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
+        usage = resource.getrusage(resource.RUSAGE_SELF)
+        if sys.platform == "darwin":
+            return usage.ru_maxrss / (1024 * 1024)
+        return usage.ru_maxrss / 1024
     except ImportError:
         pass
     try:

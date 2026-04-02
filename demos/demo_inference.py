@@ -33,7 +33,10 @@ def main() -> None:
 
     if tok_path.exists():
         loaded = tokenizer.load_from_file(str(tok_path))
-        print(f"Loaded tokenizer from {tok_path}  (vocab size: {len(tokenizer.vocabulary)})")
+        if loaded:
+            print(f"Loaded tokenizer from {tok_path}  (vocab size: {len(tokenizer.vocabulary)})")
+        else:
+            print(f"Failed to load tokenizer from {tok_path} – will train inline.")
     else:
         # Train a tiny tokenizer on the example dataset texts.
         train_jsonl = REPO_ROOT / "datasets" / "example_dataset" / "train.jsonl"

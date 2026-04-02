@@ -127,7 +127,7 @@ class TestCLI:
         args = parser.parse_args(["train", "--dataset", "some/path"])
         assert args.epochs == 5
         assert args.batch_size == 32
-        assert abs(args.lr - 1e-3) < 1e-10
+        assert abs(args.lr - 1e-3) < 1e-10  # use approx for float comparison
 
 
 # ---------------------------------------------------------------------------

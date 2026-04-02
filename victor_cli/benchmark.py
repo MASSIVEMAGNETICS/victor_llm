@@ -45,10 +45,14 @@ _SYNTHETIC_PROMPTS = [
 def _get_memory_mb() -> float:
     """Return current RSS memory in MB (cross-platform, best-effort)."""
     try:
+        import sys
         import resource  # Unix only
 
         usage = resource.getrusage(resource.RUSAGE_SELF)
-        return usage.ru_maxrss / 1024  # Linux returns kB, macOS returns bytes
+        # Linux reports ru_maxrss in kB; macOS reports in bytes.
+        if sys.platform == "darwin":
+            return usage.ru_maxrss / (1024 * 1024)
+        return usage.ru_maxrss / 1024
     except ImportError:
         pass
     try:
