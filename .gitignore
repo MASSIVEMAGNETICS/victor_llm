@@ -38,3 +38,23 @@ victor_plugins/
 
 # Desktop shortcuts
 *.desktop
+
+# Victor CLI training runs and artifacts
+runs/
+victor_tokenizers/
+
+# Benchmark results (keep .gitkeep, ignore generated JSON)
+benchmarks/results/*.json
+
+# Python packaging / build
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Dev tooling
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/

@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "victor-llm"
+version = "0.4.0"
+description = "Victor Prime Synthesis Core – modular AGI framework with production-grade training, inference, and benchmarking."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["llm", "agi", "machine-learning", "nlp", "training"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy",
+    "tqdm",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+torch = ["torch", "tqdm"]
+dev = [
+    "pytest>=7",
+    "pytest-cov",
+    "pytest-timeout",
+    "ruff",
+    "mypy",
+    "pre-commit",
+]
+
+[project.scripts]
+victor = "victor_cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/MASSIVEMAGNETICS/victor_llm"
+Repository = "https://github.com/MASSIVEMAGNETICS/victor_llm"
+
+[tool.setuptools.packages.find]
+include = ["victor_cli*", "victor_core*", "victor_modules*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+timeout = 120
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = true

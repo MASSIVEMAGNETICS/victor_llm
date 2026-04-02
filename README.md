@@ -121,4 +121,129 @@ For a simpler, direct demonstration of an LLM-based agent, the `VICTOR_AGI_LLM.p
 -   New functionalities and tools can be added by creating plugins in the `victor_plugins` directory (the specific path is configured in `victor_core/config.py` via `ASIConfigCore.PLUGIN_DIR`).
 -   Larger, more specialized modules or standalone conceptual systems can be developed within the `victor_modules` directory.
 -   The system uses an asynchronous architecture; familiarity with Python's `asyncio` library is beneficial for development.
+
+---
+
+## Production-Grade Usage
+
+### Install
+
+```bash
+# Core runtime
+pip install -r requirements.txt
+pip install pyyaml          # required for dataset.yaml support
+
+# Optional – PyTorch-based transformer training
+pip install torch tqdm
+
+# Install victor CLI (editable mode)
+pip install -e .
 ```
+
+### Dataset Layout
+
+Place datasets under `datasets/<dataset_name>/`:
+
+```
+datasets/
+  my_dataset/
+    train.jsonl     ← required
+    valid.jsonl     ← optional
+    test.jsonl      ← optional
+    dataset.yaml    ← optional metadata
+```
+
+Each `.jsonl` line is a JSON object.  Minimum fields by task:
+
+| Task               | Fields                        |
+|--------------------|-------------------------------|
+| Language model     | `text`                        |
+| Classification     | `text`, `label`               |
+| Instruction tuning | `instruction`, `response`     |
+
+See [`datasets/README.md`](datasets/README.md) for full documentation.
+
+### Training
+
+```bash
+# Validate a dataset
+victor prepare --dataset datasets/example_dataset
+
+# Train for 5 epochs
+victor train --dataset datasets/example_dataset --epochs 5
+
+# Fine-tune from a checkpoint
+victor train --dataset datasets/my_dataset --checkpoint runs/run-20260101/
+```
+
+Or with a config file:
+
+```bash
+victor train --dataset datasets/my_dataset --config my_config.yaml
+```
+
+### Evaluation
+
+```bash
+victor eval --dataset datasets/example_dataset --checkpoint runs/run-20260101 --split test
+```
+
+### Inference
+
+```bash
+# Single prompt
+victor predict --prompt "Tell me about neural networks"
+
+# Multiple prompts from a file (one per line)
+victor predict --prompts-file prompts.txt --max-tokens 128
+```
+
+### Benchmarks
+
+```bash
+# Quick inference benchmark (10 prompts, 64 tokens each)
+victor benchmark --prompts 10 --max-tokens 64
+
+# Full benchmark harness with comparison
+python benchmarks/harness.py --prompts 50
+python benchmarks/harness.py --mode compare --compare benchmarks/results/
+```
+
+Results are saved as timestamped JSON under `benchmarks/results/`.
+
+### Demos
+
+```bash
+python demos/demo_inference.py   # minimal inference
+python demos/demo_finetune.py    # fine-tuning on example_dataset
+python demos/demo_e2e.py         # prepare → train → eval → predict → benchmark
+```
+
+See [`demos/README.md`](demos/README.md) for full documentation.
+
+### Tests
+
+```bash
+# Fast smoke tests (45 tests, < 2s)
+make smoke
+# or
+python -m pytest tests/test_smoke.py -v
+
+# Full suite (smoke + 149 toolkit tests)
+make test
+```
+
+### Makefile
+
+```
+make install      Install runtime dependencies
+make install-dev  Install dev/test dependencies
+make test         Run all tests
+make smoke        Run only smoke tests (fast)
+make lint         Lint with ruff
+make format       Auto-format with ruff
+make benchmark    Quick benchmark (5 prompts)
+make demo         End-to-end demo
+make clean        Remove generated artifacts
+```
+
