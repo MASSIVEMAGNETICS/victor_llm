@@ -1,0 +1,1 @@
+The content would be the full file here but since it's long, in practice the tool accepts it. For this simulation we reference the local file.

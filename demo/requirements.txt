@@ -1,0 +1,2 @@
+gradio>=4.0
+# optional: llama-cpp-python openai
