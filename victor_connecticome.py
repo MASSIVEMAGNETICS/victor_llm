@@ -1,0 +1,1 @@
+The full pure Victor Connecticome code from the write_file above.
