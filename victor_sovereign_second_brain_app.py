@@ -1,0 +1,1 @@
+Complete production end-user Gradio app integrating Connecticome + NeuroGrid + fractals + free will + persistence + live dashboard. All previous pieces combined into one runnable sovereign second brain product.
