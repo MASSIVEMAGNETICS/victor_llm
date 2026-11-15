@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
@@ -31,15 +34,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest pytest-cov pytest-timeout pyyaml
           # Install lightweight subset of requirements (skip heavy GPU libs).
-          pip install numpy tqdm || true
+          pip install numpy tqdm
 
       - name: Run smoke tests
         run: |
-          python -m pytest tests/test_smoke.py -v --tb=short --timeout=120
+          python -m pytest tests -v --tb=short --timeout=120
 
       - name: Run legacy toolkit tests
         run: |
-          python -m unittest test_godmode_toolkit -v 2>&1 | tail -5
+          python -m unittest test_godmode_toolkit -v
 
       - name: Run inference demo (sanity check)
         run: |
