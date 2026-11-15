@@ -23,7 +23,7 @@ install-dev: install
 	$(PIP) install pytest pytest-cov pytest-timeout ruff pyyaml
 
 test: smoke
-	$(PYTHON) -m unittest test_godmode_toolkit -v 2>&1 | tail -5
+	$(PYTHON) -m unittest test_godmode_toolkit -v
 
 smoke:
 	$(PYTHON) -m pytest tests/test_smoke.py -v --tb=short
